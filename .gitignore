@@ -1,0 +1,98 @@
+﻿# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.log
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Visual Studio specific
+.vs/
+.vscode/
+*.code-workspace
+
+# Rider
+.idea/
+*.sln.iml
+
+# ASP.NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+*.symbols.nupkg
+*.nuspec
+
+# .NET Core
+project.assets.json
+project.runtimeconfig.json
+
+# dotCover
+*.dotCover
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# StyleCop
+StyleCopReport.xml
+
+# Others
+*.dbmdl
+*.bak
+*.backup
+*.tmp
+
+# JetBrains Rider
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Publish outputs
+publish/
+
+# Entity Framework
+Migrations/
+
+# Docker
+*.container
+
+# Local test results
+TestResults/
+
+# ncrunch
+*.ncrunchproject
+*.ncrunchsolution
+*.ncrunch*
+
+# Coverage reports
+coverage*
+*.coverage
+*.coveragexml
+
+# Node.js (if using front-end inside solution)
+node_modules/
+
+# MacOS
+.DS_Store

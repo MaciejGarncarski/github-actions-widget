@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "GHAAPP (Package)": {
+      "nativeDebugging": false,
+      "commandName": "MsixPackage"
+    },
+    "GHAAPP (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
