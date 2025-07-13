@@ -29,7 +29,6 @@
                            Margin="0,0,0,8" />
                 <PasswordBox Name="passworBoxWithRevealmode" Width="452"
                              HorizontalAlignment="Left"
-                             Password="DefaultTOBeChanged"
                              Margin="0,0,0,8"
                              PasswordRevealMode="Hidden" AutomationProperties.Name="GitHub Personal Access Token" />
 

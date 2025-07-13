@@ -11,6 +11,12 @@ namespace GHAAPP.Pages
         public SettingsPage()
         {
             InitializeComponent();
+            var token = TokenStore.Read();
+
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                passworBoxWithRevealmode.Password = token;
+            }
         }
 
         private void RevealModeCheckbox_Changed(object sender, RoutedEventArgs e)
@@ -18,11 +24,10 @@ namespace GHAAPP.Pages
             if (revealModeCheckBox.IsChecked == true)
             {
                 passworBoxWithRevealmode.PasswordRevealMode = PasswordRevealMode.Visible;
+                return;
             }
-            else
-            {
-                passworBoxWithRevealmode.PasswordRevealMode = PasswordRevealMode.Hidden;
-            }
+
+            passworBoxWithRevealmode.PasswordRevealMode = PasswordRevealMode.Hidden;
         }
 
         private void SavePersonalAccessToken(object sender, RoutedEventArgs e)
@@ -33,7 +38,7 @@ namespace GHAAPP.Pages
 
             try
             {
-                string token = passworBoxWithRevealmode.Password;
+                var token = passworBoxWithRevealmode.Password;
 
                 if (string.IsNullOrWhiteSpace(token))
                 {
@@ -42,13 +47,13 @@ namespace GHAAPP.Pages
                 }
 
                 TokenStore.Save(token);
-                
+
                 AppNotification notification = new AppNotificationBuilder()
                     .AddText("Token was saved.")
                     .BuildNotification();
                 AppNotificationManager.Default.Show(notification);
             }
-            catch 
+            catch
             {
                 AppNotificationManager.Default.Show(errorNotification);
             }
