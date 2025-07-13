@@ -7,8 +7,10 @@
 
     <Grid>
         <Border
-            CornerRadius="12"
-            Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+            BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumLowRevealBorderBrush}"
+            Background="{ThemeResource SystemControlBackgroundChromeMediumLowRevealBorderBrush}"
+
+            CornerRadius="8"
             Padding="24"
             Width="500"
             HorizontalAlignment="Left"
@@ -25,21 +27,29 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            Margin="0,0,0,8" />
-                <StackPanel HorizontalAlignment="Left">
-                    <PasswordBox Name="passworBoxWithRevealmode" Width="452"
-                                 HorizontalAlignment="Left"
-                                 Password="DefaultTOBeChanged"
-                                 Margin="0,0,0,8" 
-                                 PasswordRevealMode="Hidden" AutomationProperties.Name="GitHub Personal Access Token" />
-                    <CheckBox Name="revealModeCheckBox" Content="Show Personal Access Token" IsChecked="False"
-                              Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed" />
-                </StackPanel>
+                <PasswordBox Name="passworBoxWithRevealmode" Width="452"
+                             HorizontalAlignment="Left"
+                             Password="DefaultTOBeChanged"
+                             Margin="0,0,0,8"
+                             PasswordRevealMode="Hidden" AutomationProperties.Name="GitHub Personal Access Token" />
 
-                <Button Content="Save"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,12,0,0" 
-                        Click="SavePATHButton_Click"
-                        />
+                <Grid Height="Auto" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Name="revealModeCheckBox" Content="Show Personal Access Token" IsChecked="False"
+                              Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"
+                              VerticalAlignment="Center" />
+
+                    <Button Content="Save"
+                            HorizontalAlignment="Stretch"
+                            Click="SavePersonalAccessToken"
+                            Grid.Column="2" VerticalAlignment="Center" />
+                </Grid>
+
             </StackPanel>
         </Border>
     </Grid>
