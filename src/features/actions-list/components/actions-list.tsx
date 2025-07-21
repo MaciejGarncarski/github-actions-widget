@@ -27,10 +27,11 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, repo }: Props) => {
-  const { data, fetchNextPage, hasNextPage, isFetching } = useGetActions({
-    owner,
-    repo: repo || "",
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetActions({
+      owner,
+      repo: repo || "",
+    });
 
   const { ref } = useInView({
     onChange: (isVisible) => {
@@ -138,7 +139,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
           </Fragment>
         );
       })}
-      {isFetching && (
+      {isFetchingNextPage && (
         <p className="p-6 rounded-xl backdrop-blur-2xl mx-auto w-full text-center bg-white/20 border border-white/40">
           Fetching data...
         </p>

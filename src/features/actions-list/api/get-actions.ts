@@ -33,7 +33,7 @@ export const getActionsQueryOptions = ({ owner, repo }: Data) =>
     gcTime: 20000,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     queryKey: ["actions", repo],
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     refetchOnMount: false,
     queryFn: async ({ pageParam }) => {
       const response = await fetcher({

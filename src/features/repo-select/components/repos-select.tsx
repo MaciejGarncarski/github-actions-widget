@@ -2,13 +2,36 @@
 import { useGetRepos } from "@/features/repo-select/api/get-repos";
 import { setSelectedRepo } from "@/features/repo-select/api/set-selected-repo";
 import { useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 
 export function ReposSelect({ token, repo }: { token: string; repo: string }) {
   const { data, isError } = useGetRepos(token);
   const queryClient = useQueryClient();
 
   if (isError || !data) {
-    return <p>cannot fetch repos</p>;
+    return (
+      <div className="text-center p-4 backdrop-blur-3xl w-fit bg-black/30 text-amber-300 rounded-lg mx-auto flex flex-col gap-4">
+        <p>
+          Cannot fetch repos, please provide valid PERSONAL ACCESS TOKEN in{" "}
+          <Link href="/settings" className="underline">
+            settings
+          </Link>
+          .
+        </p>
+        <div className="flex gap-4 justify-center">
+          <a href="pat-permissions.png" target="_blank" className="underline">
+            Needed Permissions
+          </a>
+          <a
+            href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token"
+            target="_blank"
+            className="underline"
+          >
+            How to create Personal Access Tokens
+          </a>
+        </div>
+      </div>
+    );
   }
 
   const sortedData = data.toSorted((a, b) => {
