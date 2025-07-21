@@ -28,10 +28,12 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
   });
 
   return (
-    <div className="p-2 flex justify-center gap-2">
-      <label htmlFor="selectRepo">Selected reposiotry:</label>
+    <div className="p-2 flex justify-center gap-2 items-center">
+      <label htmlFor="selectRepo" className="text-xl">
+        Selected reposiotry:
+      </label>
       <select
-        className="text-pink-300 bg-black"
+        className="bg-white/90 backdrop-blur-sm text-black rounded-sm px-2 py-1"
         name="repo"
         defaultValue={repo}
         id="selectRepo"

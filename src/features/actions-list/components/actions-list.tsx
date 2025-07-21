@@ -4,8 +4,11 @@ import { useGetActions } from "@/features/actions-list/api/get-actions";
 import { TimeElapsed } from "@/features/actions-list/components/time-elapsed";
 import { ActionStatus, GitHubConclusion } from "@/schemas/actions";
 import clsx from "clsx";
+import { format, formatDuration, intervalToDuration } from "date-fns";
 import {
+  Calendar1Icon,
   Check,
+  Clock3,
   FileQuestion,
   LoaderIcon,
   ShieldEllipsis,
@@ -24,7 +27,7 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, repo }: Props) => {
-  const { data, fetchNextPage, hasNextPage } = useGetActions({
+  const { data, fetchNextPage, hasNextPage, isFetching } = useGetActions({
     owner,
     repo: repo || "",
   });
@@ -38,7 +41,11 @@ export const ActionsList = ({ owner, repo }: Props) => {
   });
 
   if (!repo) {
-    return <p>select repo first</p>;
+    return (
+      <p className="text-center mt-4 text-2xl bg-white/30 w-fit mx-auto p-2 px-4 rounded backdrop-blur-3xl border border-white/30">
+        Select repo first
+      </p>
+    );
   }
 
   if (data?.pages[0]?.workflow_runs.length === 0) {
@@ -62,9 +69,24 @@ export const ActionsList = ({ owner, repo }: Props) => {
                 conclusion,
                 head_sha,
                 run_started_at,
+                updated_at,
                 display_title,
                 html_url,
               }) => {
+                const runDate = new Date(run_started_at);
+
+                const formattedStartDate = format(
+                  runDate,
+                  "EEEE d.MM.yy, HH:mm:ss"
+                );
+
+                const distance = formatDuration(
+                  intervalToDuration({
+                    start: runDate,
+                    end: new Date(updated_at),
+                  })
+                );
+
                 return (
                   <article
                     key={id}
@@ -78,7 +100,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
                   >
                     <div className="flex justify-between">
                       <a href={html_url} target="_blank">
-                        <h2>
+                        <h2 className="text-xl font-bold">
                           {name} - {display_title}
                         </h2>
                       </a>
@@ -100,9 +122,14 @@ export const ActionsList = ({ owner, repo }: Props) => {
                       </p>
                     </div>
                     {!conclusion && status === "in_progress" && (
-                      <TimeElapsed initialDate={new Date(run_started_at)} />
+                      <TimeElapsed initialDate={runDate} />
                     )}
-                    <p>Start date {new Date(run_started_at).toISOString()}</p>
+                    <p className="flex items-center gap-2">
+                      <Calendar1Icon size={16} /> {formattedStartDate}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Clock3 size={16} /> {distance}
+                    </p>
                     <p className="mt-auto text-stone-400 text-sm">{head_sha}</p>
                   </article>
                 );
@@ -111,6 +138,11 @@ export const ActionsList = ({ owner, repo }: Props) => {
           </Fragment>
         );
       })}
+      {isFetching && (
+        <p className="p-6 rounded-xl backdrop-blur-2xl mx-auto w-full text-center bg-white/20 border border-white/40">
+          Fetching data...
+        </p>
+      )}
       <div ref={ref}></div>
     </div>
   );

@@ -29,6 +29,8 @@ export const getActionsQueryOptions = ({ owner, repo }: Data) =>
   >({
     initialPageParam: 1,
     refetchInterval: 5000,
+    staleTime: 10000,
+    gcTime: 20000,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     queryKey: ["actions", repo],
     refetchOnWindowFocus: false,
