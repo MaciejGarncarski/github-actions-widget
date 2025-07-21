@@ -1,5 +1,6 @@
 "use client";
 
+import { formatDuration, intervalToDuration } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
 type Props = {
@@ -23,7 +24,12 @@ export const TimeElapsed = ({ initialDate }: Props) => {
     };
   });
 
-  const timeElapsed = "5s";
+  const timeElapsed = formatDuration(
+    intervalToDuration({
+      start: initialDate,
+      end: date,
+    })
+  );
 
   return <p>{timeElapsed}</p>;
 };

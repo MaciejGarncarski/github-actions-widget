@@ -52,15 +52,10 @@ export const ActionsList = ({ owner, repo }: Props) => {
                 status,
                 conclusion,
                 head_sha,
-                created_at,
-                updated_at,
+                run_started_at,
                 display_title,
                 html_url,
               }) => {
-                const timePassed =
-                  new Date(updated_at).getTime() -
-                  new Date(created_at).getTime();
-
                 return (
                   <article
                     key={id}
@@ -96,9 +91,9 @@ export const ActionsList = ({ owner, repo }: Props) => {
                       </p>
                     </div>
                     {!conclusion && status === "in_progress" && (
-                      <TimeElapsed initialDate={new Date(created_at)} />
+                      <TimeElapsed initialDate={new Date(run_started_at)} />
                     )}
-                    <p>Start date {new Date(created_at).toISOString()}</p>
+                    <p>Start date {new Date(run_started_at).toISOString()}</p>
                     <p className="mt-auto text-stone-400 text-sm">{head_sha}</p>
                   </article>
                 );

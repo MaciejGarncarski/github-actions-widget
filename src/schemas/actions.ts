@@ -30,6 +30,7 @@ export const actionsSchema = z.object({
       updated_at: z.string(),
       html_url: z.url(),
       head_sha: z.string(),
+      run_started_at: z.string(),
     })
   ),
 });
