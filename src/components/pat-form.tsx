@@ -13,9 +13,14 @@ export function PATForm({ token }: { token: string }) {
           type="password"
           defaultValue={token}
           name="PAT"
-          className="border rounded-sm p-2 text-xl"
+          className="border rounded-sm p-2 text-xl backdrop-blur-3xl bg-white text-black"
         />
-        <button type="submit">{isPending ? <p>Saving...</p> : "Save"}</button>
+        <button
+          type="submit"
+          className="border p-2 backdrop-blur-2xl rounded-md"
+        >
+          {isPending ? <p>Saving...</p> : "Save"}
+        </button>
       </form>
       Status: {state}
     </div>

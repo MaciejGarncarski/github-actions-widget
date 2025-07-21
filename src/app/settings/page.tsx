@@ -21,7 +21,7 @@ export default async function SettingsPage() {
 
   return (
     <Suspense fallback={<p>loading</p>}>
-      <main className="flex flex-col gap-8">
+      <main className="flex flex-col gap-8 max-w-5xl mx-auto">
         <Link href={"/"} className="flex gap-2 items-center">
           <ChevronLeft />
           Back

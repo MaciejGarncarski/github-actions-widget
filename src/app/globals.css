@@ -7,6 +7,10 @@
 
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
   color: white;
   background-color: black;
+  background-image: url("/bg.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
