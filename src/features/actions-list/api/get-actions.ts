@@ -9,6 +9,7 @@ import z from "zod";
 
 type Data = {
   owner: string;
+  token: string | null;
   repo: string;
 };
 
@@ -19,7 +20,7 @@ type GithubRunsPage = {
   nextPage?: number;
 } | null;
 
-export const getActionsQueryOptions = ({ owner, repo }: Data) =>
+export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
   infiniteQueryOptions<
     GithubRunsPage,
     Error,
@@ -40,6 +41,9 @@ export const getActionsQueryOptions = ({ owner, repo }: Data) =>
         method: "GET",
         url: `${process.env.NEXT_PUBLIC_APP_URL}/api/actions?owner=${owner}&repo=${repo}&page=${pageParam}`,
         schema: actionsSchema,
+        headers: {
+          "X-API-KEY": token || "",
+        },
       });
 
       if (response.isError) {

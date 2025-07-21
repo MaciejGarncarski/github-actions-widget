@@ -1,4 +1,4 @@
-import { PATForm } from "@/components/pat-form";
+import { PATForm } from "@/features/pat-form/components/pat-form";
 import { fetcher } from "@/lib/fetcher";
 import { userSchema } from "@/schemas/user";
 import { getPAT } from "@/utils/cookie";

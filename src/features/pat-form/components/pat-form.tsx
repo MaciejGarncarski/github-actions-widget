@@ -1,6 +1,6 @@
 "use client";
 
-import { savePAT } from "@/actions/save-pat";
+import { savePAT } from "@/features/pat-form/api/save-pat";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";

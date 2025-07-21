@@ -24,12 +24,14 @@ import { useInView } from "react-intersection-observer";
 type Props = {
   repo: string | null;
   owner: string;
+  token: string | null;
 };
 
-export const ActionsList = ({ owner, repo }: Props) => {
+export const ActionsList = ({ owner, token, repo }: Props) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetActions({
       owner,
+      token,
       repo: repo || "",
     });
 
@@ -43,7 +45,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
 
   if (!repo) {
     return (
-      <p className="text-center mt-4 text-2xl bg-white/30 w-fit mx-auto p-2 px-4 rounded backdrop-blur-3xl border border-white/30">
+      <p className="text-center mt-4 text-2xl bg-white/30 w-fit mx-auto p-2 px-4 rounded backdrop-blur-xl border border-white/30">
         Select repo first
       </p>
     );
@@ -92,7 +94,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
                   <article
                     key={id}
                     className={clsx(
-                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-xl backdrop-blur-2xl backdrop-saturate-110 shadow",
+                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-xl backdrop-blur-2xl backdrop-saturate-110 shadow transition-all duration-300",
                       conclusion
                         ? conclusionBorderColors[conclusion]
                         : statusBorderColors[status],
@@ -122,15 +124,18 @@ export const ActionsList = ({ owner, repo }: Props) => {
                           : statusMap[status]}
                       </p>
                     </div>
-                    {!conclusion && status === "in_progress" && (
-                      <TimeElapsed initialDate={runDate} />
-                    )}
+
                     <p className="flex items-center gap-2">
                       <Calendar1Icon size={16} /> {formattedStartDate}
                     </p>
-                    <p className="flex items-center gap-2">
-                      <Clock3 size={16} /> {distance}
-                    </p>
+                    {!conclusion && status === "in_progress" && (
+                      <TimeElapsed initialDate={runDate} />
+                    )}
+                    {status === "completed" && (
+                      <p className="flex items-center gap-2">
+                        <Clock3 size={16} /> {distance}
+                      </p>
+                    )}
                     <p className="mt-auto text-stone-400 text-sm">{head_sha}</p>
                   </article>
                 );
@@ -152,7 +157,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
 const statusBorderColors: Record<ActionStatus, string> = {
   completed: "border-green-500/30",
   in_progress: "border-yellow-500/30",
-  queued: "border-white/10",
+  queued: "border-white/40",
 };
 
 const statusMap: Record<ActionStatus, string> = {
@@ -185,7 +190,7 @@ const conclusionBorderColors: Record<GitHubConclusion, string> = {
 
 const conclusionBackgroundColors: Record<GitHubConclusion, string> = {
   action_required: "bg-orange-500/25",
-  cancelled: "bg-orange-500/25",
+  cancelled: "bg-orange-700/25",
   failure: "bg-red-500/25",
   neutral: "bg-gray-500/25",
   skipped: "bg-blue-500/25",
