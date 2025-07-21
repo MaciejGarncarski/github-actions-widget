@@ -31,7 +31,7 @@ export const getActionsQueryOptions = ({ owner, repo }: Data) =>
     queryFn: async () => {
       const response = await fetcher({
         method: "GET",
-        url: `http://localhost:3000/api/actions?owner=${owner}&repo=${repo}`,
+        url: `${process.env.APP_URL}/api/actions?owner=${owner}&repo=${repo}`,
         schema: actionsSchema,
       });
 
