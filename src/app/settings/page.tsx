@@ -1,14 +1,14 @@
 import { PATForm } from "@/components/pat-form";
 import { fetcher } from "@/lib/fetcher";
 import { userSchema } from "@/schemas/user";
-import { cookies } from "next/headers";
+import { getPAT } from "@/utils/cookie";
+import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function SettingsPage() {
-  const appCookies = await cookies();
-  const token = appCookies.get("PAT")?.value as string;
+  const token = await getPAT();
 
   const response = await fetcher({
     method: "GET",
@@ -22,10 +22,12 @@ export default async function SettingsPage() {
   return (
     <Suspense fallback={<p>loading</p>}>
       <main className="flex flex-col gap-8">
-        <Link href={"/"}>---</Link>
+        <Link href={"/"} className="flex gap-2 items-center">
+          <ChevronLeft />
+          Back
+        </Link>
         <h1 className="text-5xl">Settings Page</h1>
-        <PATForm token={token} />
-
+        <PATForm token={token || ""} />
         {response.isError ? (
           <div>Failed to fetch user data.</div>
         ) : (
