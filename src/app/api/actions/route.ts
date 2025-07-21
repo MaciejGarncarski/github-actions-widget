@@ -3,11 +3,14 @@ import { actionsSchema } from "@/schemas/actions";
 import { getPAT } from "@/utils/cookie";
 import { NextRequest } from "next/server";
 
+const PER_PAGE = 5;
+
 export async function GET(request: NextRequest) {
   const token = await getPAT();
   const searchParams = request.nextUrl.searchParams;
   const repo = searchParams.get("repo");
   const owner = searchParams.get("owner");
+  const page = searchParams.get("page");
   const initialToken = searchParams.get("initialToken");
 
   if (!token) {
@@ -18,7 +21,7 @@ export async function GET(request: NextRequest) {
 
   const response = await fetcher({
     method: "GET",
-    url: `https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=5`,
+    url: `https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=${PER_PAGE}&page=${page}`,
     schema: actionsSchema,
     headers: {
       Authorization: `Bearer ${token || initialToken}`,

@@ -4,7 +4,12 @@ import * as z from "zod";
 import { setPATCookie } from "@/utils/cookie";
 
 const PATSchema = z.object({
-  PAT: z.string().min(10),
+  PAT: z
+    .string()
+    .regex(
+      /^(ghp|github_pat)_[A-Za-z0-9_]{20,}$/,
+      "Nieprawidłowy format GitHub PAT"
+    ),
 });
 
 export async function savePAT(prevState: string, formData: FormData) {
@@ -12,13 +17,13 @@ export async function savePAT(prevState: string, formData: FormData) {
     const parsed = PATSchema.safeParse(Object.fromEntries(formData));
 
     if (parsed.error) {
-      return "Invalid token provided";
+      return "invalid-token";
     }
 
     await setPATCookie(parsed.data.PAT);
 
     return "success";
   } catch {
-    return "Unexpected error";
+    return "error";
   }
 }

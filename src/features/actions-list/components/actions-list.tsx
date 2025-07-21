@@ -16,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 import { Fragment, ReactNode } from "react";
+import { useInView } from "react-intersection-observer";
 
 type Props = {
   repo: string | null;
@@ -23,16 +24,24 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, repo }: Props) => {
-  const { data } = useGetActions({
+  const { data, fetchNextPage, hasNextPage } = useGetActions({
     owner,
     repo: repo || "",
+  });
+
+  const { ref } = useInView({
+    onChange: (isVisible) => {
+      if (isVisible && hasNextPage) {
+        fetchNextPage();
+      }
+    },
   });
 
   if (!repo) {
     return <p>select repo first</p>;
   }
 
-  if (data.pages[0]?.workflow_runs.length === 0) {
+  if (data?.pages[0]?.workflow_runs.length === 0) {
     return (
       <p className="mx-auto text-3xl backdrop-blur-2xl text-center w-fit my-10 p-2 rounded shadow border">
         There are no actions in selected repo.
@@ -41,7 +50,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
   }
 
   return (
-    <div className="flex flex-col gap-4 max-w-3xl mx-auto">
+    <div className="flex flex-col gap-4">
       {data.pages.map((group, i) => {
         return (
           <Fragment key={i}>
@@ -102,6 +111,7 @@ export const ActionsList = ({ owner, repo }: Props) => {
           </Fragment>
         );
       })}
+      <div ref={ref}></div>
     </div>
   );
 };
@@ -130,25 +140,25 @@ const conclusionMap: Record<GitHubConclusion, string> = {
 };
 
 const conclusionBorderColors: Record<GitHubConclusion, string> = {
-  action_required: "border-orange-500/30",
-  cancelled: "border-orange-500/30",
-  failure: "border-red-500/30",
-  neutral: "border-gray-500/30",
-  skipped: "border-blue-500/30",
-  stale: "border-blue-500/30",
-  success: "border-green-500/30",
-  timed_out: "border-orange-500/30",
+  action_required: "border-orange-500/40",
+  cancelled: "border-orange-500/40",
+  failure: "border-red-500/40",
+  neutral: "border-gray-500/40",
+  skipped: "border-blue-500/40",
+  stale: "border-blue-500/40",
+  success: "border-green-500/40",
+  timed_out: "border-orange-500/40",
 };
 
 const conclusionBackgroundColors: Record<GitHubConclusion, string> = {
-  action_required: "bg-orange-500/18",
-  cancelled: "bg-orange-500/18",
-  failure: "bg-red-500/18",
-  neutral: "bg-gray-500/18",
-  skipped: "bg-blue-500/18",
-  stale: "bg-blue-500/18",
-  success: "bg-green-500/18",
-  timed_out: "bg-orange-500/18",
+  action_required: "bg-orange-500/25",
+  cancelled: "bg-orange-500/25",
+  failure: "bg-red-500/25",
+  neutral: "bg-gray-500/25",
+  skipped: "bg-blue-500/25",
+  stale: "bg-blue-500/25",
+  success: "bg-green-500/25",
+  timed_out: "bg-orange-500/25",
 };
 
 const conclusionIcons: Record<GitHubConclusion, ReactNode> = {

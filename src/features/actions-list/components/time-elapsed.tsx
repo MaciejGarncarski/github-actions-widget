@@ -22,7 +22,7 @@ export const TimeElapsed = ({ initialDate }: Props) => {
       }
       timerRef.current = null;
     };
-  });
+  }, []);
 
   const timeElapsed = formatDuration(
     intervalToDuration({

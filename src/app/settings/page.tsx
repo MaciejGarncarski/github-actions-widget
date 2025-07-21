@@ -5,7 +5,6 @@ import { getPAT } from "@/utils/cookie";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default async function SettingsPage() {
   const token = await getPAT();
@@ -20,32 +19,47 @@ export default async function SettingsPage() {
   });
 
   return (
-    <Suspense fallback={<p>loading</p>}>
-      <main className="flex flex-col gap-8 max-w-5xl mx-auto">
-        <Link href={"/"} className="flex gap-2 items-center">
-          <ChevronLeft />
+    <main className="flex flex-col gap-8 max-w-3xl mx-auto">
+      <header className="flex justify-between items-center">
+        <h1 className="text-center text-2xl md:text-3xl font-bold">
+          Settings Page
+        </h1>
+        <Link
+          href={"/"}
+          className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
+        >
+          <ChevronLeft size={18} />
           Back
         </Link>
-        <h1 className="text-5xl">Settings Page</h1>
+      </header>
+      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/30 bg-white/10 flex flex-col gap-4">
+        <h2 className="text-2xl">Token Settings</h2>
         <PATForm token={token || ""} />
+      </div>
+
+      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/30 bg-white/10">
+        <h2 className="text-2xl">User Account Info</h2>
         {response.isError ? (
           <div>Failed to fetch user data.</div>
         ) : (
-          <div>
-            <h2>Account data</h2>
-            <p>{response.data.name}</p>
-            <p>{response.data.bio}</p>
-            <p>{response.data.location}</p>
-            <Image
-              src={response.data.avatar_url}
-              alt="user avatar"
-              width={50}
-              height={50}
-              className="rounded-lg"
-            />
+          <div className="flex flex-col gap-2">
+            <div className="flex w-full justify-between items-center">
+              <div>
+                <p>{response.data.name}</p>
+                <p>{response.data.bio}</p>
+                <p>{response.data.location}</p>
+              </div>
+              <Image
+                src={response.data.avatar_url}
+                alt="user avatar"
+                width={80}
+                height={80}
+                className="rounded-lg aspect-square"
+              />
+            </div>
           </div>
         )}
-      </main>
-    </Suspense>
+      </div>
+    </main>
   );
 }

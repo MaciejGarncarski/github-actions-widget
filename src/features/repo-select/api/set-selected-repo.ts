@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export const setSelectedRepo = async (value: string) => {
@@ -11,8 +10,6 @@ export const setSelectedRepo = async (value: string) => {
     sameSite: "strict",
     secure: true,
   });
-
-  revalidatePath("/");
 };
 
 export const getRepo = async () => {
