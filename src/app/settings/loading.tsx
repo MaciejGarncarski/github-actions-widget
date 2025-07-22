@@ -11,6 +11,7 @@ export default function LoadingSettings() {
           Settings Page
         </h1>
         <Link
+          prefetch
           href={"/"}
           className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
         >

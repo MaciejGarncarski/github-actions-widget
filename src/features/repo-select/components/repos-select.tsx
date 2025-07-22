@@ -13,7 +13,7 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
       <div className="text-center p-4 backdrop-blur-3xl w-fit bg-black/30 text-amber-300 rounded-lg mx-auto flex flex-col gap-4">
         <p>
           Cannot fetch repos, please provide valid PERSONAL ACCESS TOKEN in{" "}
-          <Link href="/settings" className="underline">
+          <Link href="/settings" className="underline" prefetch>
             settings
           </Link>
           .

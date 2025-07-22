@@ -17,10 +17,11 @@ import { SelectLoadingSkeleton } from "@/features/repo-select/components/select-
 import { RateLimitInfo } from "@/features/rate-limit/components/rate-limit-info";
 
 export default async function Home() {
-  const token = await getPAT();
-  const repo = await getRepo();
-  const queryClient = getQueryClient();
   const appCookies = await cookies();
+  const [token, repo] = await Promise.all([getPAT(), getRepo()]);
+  const cookiesAccepted = appCookies.get("selectedRepo");
+  const rateLimitData = appCookies.get("rateLimit")?.value;
+  const queryClient = getQueryClient();
 
   const response = await fetcher({
     method: "GET",
@@ -31,7 +32,6 @@ export default async function Home() {
     },
   });
 
-  const cookiesAccepted = appCookies.get("selectedRepo");
   const username = response.data.login;
 
   if (token) {
@@ -45,8 +45,6 @@ export default async function Home() {
     );
   }
 
-  const rateLimitData = appCookies.get("rateLimit")?.value;
-
   return (
     <div>
       <main className="flex flex-col gap-4 max-w-3xl mx-auto">
@@ -55,6 +53,7 @@ export default async function Home() {
             GitHub Actions Widget
           </h1>
           <Link
+            prefetch
             href={"/settings"}
             className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
           >

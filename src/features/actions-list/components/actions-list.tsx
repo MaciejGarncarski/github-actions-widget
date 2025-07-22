@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetActions } from "@/features/actions-list/api/get-actions";
+import { SkeletonLoading } from "@/features/actions-list/components/skeleton-loading";
 import { TimeElapsed } from "@/features/actions-list/components/time-elapsed";
 import { ActionStatus, GitHubConclusion } from "@/schemas/actions";
 import clsx from "clsx";
@@ -28,7 +29,7 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, token, repo }: Props) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useGetActions({
       owner,
       token,
@@ -57,6 +58,10 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
         There are no actions in selected repo.
       </p>
     );
+  }
+
+  if (isFetching && !isFetchingNextPage) {
+    return <SkeletonLoading />;
   }
 
   return (
