@@ -66,17 +66,26 @@ export default async function Home() {
           <Suspense fallback={<SelectLoadingSkeleton />}>
             <ReposSelect token={token || ""} repo={repo || ""} />
           </Suspense>
-          <Suspense
-            fallback={
-              <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30"></div>
-            }
-          >
-            <RateLimitInfo rateLimitData={rateLimitData || ""} />
-          </Suspense>
 
-          <Suspense fallback={<SkeletonLoading />}>
-            <ActionsList repo={repo || null} owner={username} token={token} />
-          </Suspense>
+          {token && (
+            <>
+              <Suspense
+                fallback={
+                  <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30"></div>
+                }
+              >
+                <RateLimitInfo rateLimitData={rateLimitData || ""} />
+              </Suspense>
+
+              <Suspense fallback={<SkeletonLoading />}>
+                <ActionsList
+                  repo={repo || null}
+                  owner={username}
+                  token={token}
+                />
+              </Suspense>
+            </>
+          )}
         </HydrationBoundary>
       </main>
     </div>

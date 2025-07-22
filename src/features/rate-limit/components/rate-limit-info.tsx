@@ -11,7 +11,15 @@ export const RateLimitInfo = ({ rateLimitData }: { rateLimitData: string }) => {
       data = rateLimit.data;
     }
   } catch {
-    return null;
+    return (
+      <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30">
+        <RateLimitInfoClient
+          rateLimitReset={data?.rateLimitReset || new Date()}
+          rateLimitTotal={data?.rateLimitTotal || 5000}
+          rateLimitUsed={data?.rateLimitUsed || 0}
+        />
+      </div>
+    );
   }
 
   if (!data) {
