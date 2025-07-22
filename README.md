@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Actions Widget
 
-## Getting Started
+An widget to display GitHub Actions in one place. I built this app, because GitHub is so slow that I could not stand it.
 
-First, run the development server:
+![Screenshot](https://raw.githubusercontent.com/MaciejGarncarski/github-actions-widget/refs/heads/main/.github/screenshots/main.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Usage
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Generate PAT in GitHub developer settings, paste it in app settings (/settings route) and save. Token is encrypted and saved in cookies.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[Needed Permissions](https://raw.githubusercontent.com/MaciejGarncarski/github-actions-widget/refs/heads/main/public/pat-permissions.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[How to create Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
 
-## Learn More
+## Live
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[https://github-actions-widget.vercel.app/](https://github-actions-widget.vercel.app/)
