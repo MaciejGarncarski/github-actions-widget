@@ -29,12 +29,18 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, token, repo }: Props) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useGetActions({
-      owner,
-      token,
-      repo: repo || "",
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+    isRefetching,
+  } = useGetActions({
+    owner,
+    token,
+    repo: repo || "",
+  });
 
   const { ref } = useInView({
     onChange: (isVisible) => {
@@ -60,7 +66,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
     );
   }
 
-  if (isFetching && !isFetchingNextPage) {
+  if (isFetching && !isFetchingNextPage && !isRefetching) {
     return <SkeletonLoading />;
   }
 
