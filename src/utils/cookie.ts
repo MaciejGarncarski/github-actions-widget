@@ -1,3 +1,4 @@
+import { cookieConfig } from "@/constants/cookie";
 import { decrypt, encrypt } from "@/utils/encryption";
 import { cookies } from "next/headers";
 
@@ -5,11 +6,7 @@ export const setPATCookie = async (value: string) => {
   const appCookies = await cookies();
   const encryptedValue = encrypt(value);
 
-  appCookies.set("PAT", encryptedValue, {
-    httpOnly: true,
-    sameSite: "strict",
-    secure: true,
-  });
+  appCookies.set("PAT", encryptedValue, cookieConfig);
 };
 
 export const getPAT = async () => {

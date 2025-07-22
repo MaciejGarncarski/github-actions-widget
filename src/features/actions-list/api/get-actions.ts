@@ -1,3 +1,4 @@
+import { ACTIONS_PER_PAGE } from "@/constants/actions";
 import { fetcher } from "@/lib/fetcher";
 import { actionsSchema } from "@/schemas/actions";
 import {
@@ -12,8 +13,6 @@ type Data = {
   token: string | null;
   repo: string;
 };
-
-const PER_PAGE = 10;
 
 type GithubRunsPage = {
   workflow_runs: z.infer<typeof actionsSchema>["workflow_runs"];
@@ -53,7 +52,7 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
       return {
         workflow_runs: response.data.workflow_runs,
         nextPage:
-          response.data.total_count > pageParam * PER_PAGE
+          response.data.total_count > pageParam * ACTIONS_PER_PAGE
             ? pageParam + 1
             : undefined,
       };

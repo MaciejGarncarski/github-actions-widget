@@ -13,6 +13,8 @@ import { fetcher } from "@/lib/fetcher";
 import { SkeletonLoading } from "@/features/actions-list/components/skeleton-loading";
 import { getActionsQueryOptions } from "@/features/actions-list/api/get-actions";
 import { cookies } from "next/headers";
+import { SelectLoadingSkeleton } from "@/features/repo-select/components/select-loading-skeleton";
+import { RateLimitInfo } from "@/features/rate-limit/components/rate-limit-info";
 
 export default async function Home() {
   const token = await getPAT();
@@ -30,7 +32,6 @@ export default async function Home() {
   });
 
   const cookiesAccepted = appCookies.get("selectedRepo");
-
   const username = response.data.login;
 
   if (token) {
@@ -43,6 +44,8 @@ export default async function Home() {
       })
     );
   }
+
+  const rateLimitData = appCookies.get("rateLimit")?.value;
 
   return (
     <div>
@@ -60,15 +63,17 @@ export default async function Home() {
           </Link>
         </header>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense
-            fallback={
-              <div className="p-2 flex justify-center gap-2">
-                <div className="w-64 h-10 rounded-lg bg-white/30 backdrop-blur-2xl"></div>
-              </div>
-            }
-          >
+          <Suspense fallback={<SelectLoadingSkeleton />}>
             <ReposSelect token={token || ""} repo={repo || ""} />
           </Suspense>
+          <Suspense
+            fallback={
+              <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30"></div>
+            }
+          >
+            <RateLimitInfo rateLimitData={rateLimitData || ""} />
+          </Suspense>
+
           <Suspense fallback={<SkeletonLoading />}>
             <ActionsList repo={repo || null} owner={username} token={token} />
           </Suspense>

@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
+    cacheComponents: true,
+    useCache: true,
     globalNotFound: true,
     devtoolSegmentExplorer: true,
     clientSegmentCache: true,

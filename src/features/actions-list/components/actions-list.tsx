@@ -45,15 +45,15 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (!repo) {
     return (
-      <p className="text-center mt-4 text-2xl bg-white/30 w-fit mx-auto p-2 px-4 rounded backdrop-blur-xl border border-white/30">
-        Select repo first
+      <p className="mx-auto text-2xl backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/30">
+        Select repo first.
       </p>
     );
   }
 
   if (data?.pages[0]?.workflow_runs.length === 0) {
     return (
-      <p className="mx-auto text-3xl backdrop-blur-2xl text-center w-fit my-10 p-2 rounded shadow border">
+      <p className="mx-auto text-2xl backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/30">
         There are no actions in selected repo.
       </p>
     );

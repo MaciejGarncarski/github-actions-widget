@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
-import { cookies } from "next/headers";
-import { CookieBanner } from "@/features/cookie-banner/components/cookie-banner";
+import { CookieBannerContainer } from "@/features/cookie-banner/components/cookie-banner-container";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,16 +25,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const appCookies = await cookies();
-  const cookiesAccepted = appCookies.get("cookiesAccepted")?.value === "true";
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8`}
       >
         <Providers>{children}</Providers>
-        <CookieBanner accepted={cookiesAccepted} />
+        <Suspense fallback={null}>
+          <CookieBannerContainer />
+        </Suspense>
       </body>
     </html>
   );
