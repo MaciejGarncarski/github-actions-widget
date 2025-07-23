@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function LoadingApp() {
   return (
     <main className="flex flex-col gap-4 max-w-3xl mx-auto">
-      <header className="flex justify-between items-center">
+      <header className="flex justify-between items-center flex-col sm:flex-row gap-2">
         <h1 className="text-center text-2xl md:text-3xl font-bold">
           GitHub Actions Widget
         </h1>
