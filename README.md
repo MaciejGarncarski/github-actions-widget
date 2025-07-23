@@ -1,6 +1,8 @@
 # GitHub Actions Widget
 
-An widget to display GitHub Actions in one place. I built this app, because GitHub is so slow that I could not stand it.
+A widget app to display GitHub Actions in one place.
+
+I built this app, because GitHub is so slow that I could not stand it.
 
 ![Screenshot](https://raw.githubusercontent.com/MaciejGarncarski/github-actions-widget/refs/heads/main/.github/screenshots/main.png)
 
