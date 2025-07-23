@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: "Widget for checking which actions are running in your repos.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -34,7 +34,6 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <CookieBannerContainer />
         </Suspense>
-
         <footer className="flex justify-between rounded-lg border border-white/20 backdrop-blur-lg bg-white/30 p-4 fixed bottom-4 xl:w-1/4 w-[90%] left-[5%] xl:left-[unset] md:right-4">
           <a
             href="https://github.com/maciejgarncarski/github-actions-widget"

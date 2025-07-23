@@ -13,7 +13,7 @@ export function PATForm({ token }: { token: string }) {
     if (state === "success") {
       router.push("/");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <form action={formAction} className="flex flex-col gap-4">

@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
+    ppr: true,
+    cacheComponents: true,
     devtoolSegmentExplorer: true,
     clientSegmentCache: true,
     turbopackPersistentCaching: true,
