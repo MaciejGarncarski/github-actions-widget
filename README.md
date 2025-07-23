@@ -6,6 +6,14 @@ I built this app, because GitHub is so slow that I could not stand it.
 
 ![Screenshot](https://raw.githubusercontent.com/MaciejGarncarski/github-actions-widget/refs/heads/main/.github/screenshots/main.png)
 
+## Tech used
+
+- Next.js
+- Tailwind CSS
+- Zod
+- Playwright
+- Vitest
+
 ## Usage
 
 Generate PAT in GitHub developer settings, paste it in app settings (/settings route) and save. Token is encrypted and saved in cookies.
@@ -17,3 +25,24 @@ Generate PAT in GitHub developer settings, paste it in app settings (/settings r
 ## Live
 
 [https://github-actions-widget.vercel.app/](https://github-actions-widget.vercel.app/)
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Testing
+
+Unit
+
+```bash
+pnpm test
+```
+
+E2E
+
+```
+pnpm test:e2e
+```

@@ -5,16 +5,16 @@ import {
   randomBytes,
 } from "node:crypto";
 
-const secretKey = process.env.ENCRYPTION_SECRET as string;
+const secretKey = process.env.ENCRYPTION_SECRET || 'your-secret-key' as string;
 
 const key = createHash("sha512")
   .update(secretKey)
   .digest("hex")
   .substring(0, 32);
-const iv = randomBytes(16);
-const algorithm = "aes-256-cbc";
-
-export function encrypt(data: string) {
+  const algorithm = "aes-256-cbc";
+  
+  export function encrypt(data: string) {
+  const iv = randomBytes(16);
   const cipher = createCipheriv(algorithm, Buffer.from(key), iv);
   let encrypted = cipher.update(data, "utf-8", "hex");
   encrypted += cipher.final("hex");
