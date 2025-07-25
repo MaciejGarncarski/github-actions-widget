@@ -10,8 +10,4 @@ body {
   min-height: 100dvh;
   color: white;
   background-color: black;
-  background-image: url("/bg.gif");
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }

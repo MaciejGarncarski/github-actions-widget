@@ -4,6 +4,8 @@ import "./globals.css";
 import Providers from "@/components/providers";
 import { CookieBannerContainer } from "@/features/cookie-banner/components/cookie-banner-container";
 import { Suspense } from "react";
+import Image from "next/image";
+import bgGif from "@/assets/bg.gif";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,8 +31,17 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8 relative`}
       >
+        <Image
+          src={bgGif}
+          width={1920}
+          height={1080}
+          alt=""
+          quality={30}
+          priority
+          className="fixed blur-xs h-full lg:w-full -z-10 top-0 object-cover"
+        />
         <Providers>{children}</Providers>
         <Suspense fallback={null}>
           <CookieBannerContainer />
