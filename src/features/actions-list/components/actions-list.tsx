@@ -147,7 +147,9 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                         <Clock3 size={16} /> {distance}
                       </p>
                     )}
-                    <p className="mt-auto text-stone-400 text-sm">{head_sha}</p>
+                    <p className="mt-auto text-gray-300/50 text-sm">
+                      {head_sha}
+                    </p>
                   </article>
                 );
               }
