@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
     devtoolSegmentExplorer: true,
     clientSegmentCache: true,
     turbopackPersistentCaching: true,
-    nodeMiddleware: true,
   },
 };
 

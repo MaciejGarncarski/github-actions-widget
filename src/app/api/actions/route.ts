@@ -1,4 +1,5 @@
 import { ACTIONS_PER_PAGE } from "@/constants/actions";
+import { cookieCientSide } from "@/constants/cookie";
 import { fetcher } from "@/lib/fetcher";
 import { actionsSchema } from "@/schemas/actions";
 import { cookies } from "next/headers";
@@ -39,7 +40,8 @@ export async function GET(request: NextRequest) {
       rateLimitReset,
       rateLimitTotal,
       rateLimitUsed,
-    })
+    }),
+    cookieCientSide
   );
 
   if (response.isError) {

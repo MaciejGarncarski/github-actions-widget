@@ -27,6 +27,7 @@ export default async function Home() {
     method: "GET",
     url: "https://api.github.com/user",
     schema: userSchema,
+    cache: "force-cache",
     headers: {
       Authorization: `Bearer ${token}`,
     },

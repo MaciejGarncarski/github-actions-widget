@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8`}
       >
         <Providers>{children}</Providers>
@@ -40,10 +41,12 @@ export default function RootLayout({
             target="_blank"
             className="flex gap-2 items-center justify-center"
           >
-            <div className="size-4 align-middle">
+            <div className="size-4 flex justify-center items-center">
               <svg
                 role="img"
-                className="block m-auto align-middle h-full"
+                className="align-middle block"
+                width={16}
+                height={16}
                 fill="white"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

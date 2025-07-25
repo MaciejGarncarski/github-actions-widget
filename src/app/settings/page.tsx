@@ -13,6 +13,7 @@ export default async function SettingsPage() {
     method: "GET",
     url: "https://api.github.com/user",
     schema: userSchema,
+    cache: "force-cache",
     headers: {
       Authorization: `Bearer ${token}`,
     },
