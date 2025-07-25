@@ -56,7 +56,7 @@ export default async function Home() {
           <Link
             prefetch
             href={"/settings"}
-            className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
+            className="flex gap-2 items-center backdrop-blur-2xl bg-black/30 px-3 py-2 rounded-lg border border-white/20"
           >
             <Settings size={18} />
             Settings
@@ -71,7 +71,7 @@ export default async function Home() {
             <>
               <Suspense
                 fallback={
-                  <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30"></div>
+                  <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/20"></div>
                 }
               >
                 <RateLimitInfo rateLimitData={rateLimitData || ""} />

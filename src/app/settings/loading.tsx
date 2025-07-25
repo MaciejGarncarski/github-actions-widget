@@ -13,7 +13,7 @@ export default function LoadingSettings() {
         <Link
           prefetch
           href={"/"}
-          className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
+          className="flex gap-2 items-center backdrop-blur-2xl bg-black/30 px-3 py-2 rounded-lg border border-white/20"
         >
           <ChevronLeft size={18} />
           Back

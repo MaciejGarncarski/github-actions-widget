@@ -12,7 +12,7 @@ export const RateLimitInfo = ({ rateLimitData }: { rateLimitData: string }) => {
     }
   } catch {
     return (
-      <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30">
+      <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border bg-black/30  border-white/20">
         <RateLimitInfoClient
           rateLimitReset={data?.rateLimitReset || new Date()}
           rateLimitTotal={data?.rateLimitTotal || 5000}
@@ -27,7 +27,7 @@ export const RateLimitInfo = ({ rateLimitData }: { rateLimitData: string }) => {
   }
 
   return (
-    <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/30">
+    <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border bg-black/30  border-white/20">
       <RateLimitInfoClient
         rateLimitReset={data.rateLimitReset}
         rateLimitTotal={data.rateLimitTotal}

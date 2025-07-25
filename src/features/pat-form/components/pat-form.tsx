@@ -2,18 +2,10 @@
 
 import { savePAT } from "@/features/pat-form/api/save-pat";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 
 export function PATForm({ token }: { token: string }) {
   const [state, formAction, isPending] = useActionState(savePAT, "");
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state === "success") {
-      router.push("/");
-    }
-  }, [state, router]);
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
@@ -31,7 +23,7 @@ export function PATForm({ token }: { token: string }) {
       />
       <button
         type="submit"
-        className="cursor-pointer bg-white/10 border-white/40 border p-2 backdrop-blur-2xl rounded-md"
+        className="cursor-pointer bg-black/10 border-white/40 border p-2 backdrop-blur-2xl rounded-md"
       >
         {isPending ? <p>Saving...</p> : "Save"}
       </button>

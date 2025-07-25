@@ -51,7 +51,7 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
   });
 
   return (
-    <div className="p-4 flex flex-col md:flex-row justify-center gap-4 border border-white/30 items-center bg-gray-800/10 backdrop-blur-xl rounded-md">
+    <div className="p-4 flex flex-col md:flex-row justify-center gap-4 h-20 border border-white/20 items-center bg-black/30 backdrop-blur-2xl rounded-md">
       <label htmlFor="selectRepo" className="text-xl">
         Selected reposiotry:
       </label>

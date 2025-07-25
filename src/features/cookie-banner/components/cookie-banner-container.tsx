@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 
 export const CookieBannerContainer = async () => {
   const appCookies = await cookies();
-  const cookiesAccepted = appCookies.get("cookiesAccepted")?.value === "true";
+  const cookie = appCookies.get("cookiesAccepted");
+  const cookiesAccepted = cookie?.value ? cookie.value === "true" : true;
 
   return <CookieBanner accepted={cookiesAccepted} />;
 };

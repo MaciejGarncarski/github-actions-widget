@@ -2,6 +2,7 @@
 import * as z from "zod";
 
 import { setPATCookie } from "@/utils/cookie";
+import { redirect } from "next/navigation";
 
 const PATSchema = z.object({
   PAT: z
@@ -13,17 +14,13 @@ const PATSchema = z.object({
 });
 
 export async function savePAT(prevState: string, formData: FormData) {
-  try {
-    const parsed = PATSchema.safeParse(Object.fromEntries(formData));
+  const parsed = PATSchema.safeParse(Object.fromEntries(formData));
 
-    if (parsed.error) {
-      return "invalid-token";
-    }
-
-    await setPATCookie(parsed.data.PAT);
-
-    return "success";
-  } catch {
-    return "error";
+  if (parsed.error) {
+    return "invalid-token";
   }
+
+  await setPATCookie(parsed.data.PAT);
+
+  throw redirect("/");
 }

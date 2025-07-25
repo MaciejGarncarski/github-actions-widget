@@ -28,18 +28,18 @@ export default async function SettingsPage() {
         <Link
           prefetch
           href={"/"}
-          className="flex gap-2 items-center backdrop-blur-2xl bg-white/30 px-3 py-2 rounded-lg border border-white/30"
+          className="flex gap-2 items-center backdrop-blur-2xl bg-black/30 px-3 py-2 rounded-lg border border-white/20"
         >
           <ChevronLeft size={18} />
           Back
         </Link>
       </header>
-      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/30 bg-white/10 flex flex-col gap-4">
+      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/20 bg-black/10 flex flex-col gap-4">
         <h2 className="text-2xl">Token Settings</h2>
         <PATForm token={token || ""} />
       </div>
 
-      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/30 bg-white/10">
+      <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/20 bg-black/10">
         <h2 className="text-2xl">User Account Info</h2>
         {response.isError ? (
           <div>Failed to fetch user data.</div>
