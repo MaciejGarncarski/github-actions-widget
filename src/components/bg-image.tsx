@@ -20,7 +20,7 @@ export const BgImage = () => {
         priority
         placeholder="blur"
         onLoad={() => setPlaceholderLoaded(true)}
-        className="fixed blur-xs h-[100dvh] lg:w-full -z-20 left-0 top-0 object-cover"
+        className="fixed blur-xs h-[100svh] lg:w-full -z-20 left-0 top-0 object-cover"
       />
       {placeholderLoaded && (
         <Image
@@ -30,7 +30,7 @@ export const BgImage = () => {
           alt=""
           priority
           unoptimized
-          className="fixed blur-xs h-[100dvh] lg:w-full -z-10 left-0 top-0 object-cover"
+          className="fixed blur-xs h-[100svh] lg:w-full -z-10 left-0 top-0 object-cover"
         />
       )}
     </>
