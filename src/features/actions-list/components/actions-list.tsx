@@ -118,7 +118,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                           {name} - {display_title}
                         </h2>
                       </a>
-                      <p className="flex gap-2 items-center">
+                      <p className="flex gap-2 items-center shrink-0">
                         {conclusion ? (
                           conclusionIcons[conclusion]
                         ) : (
