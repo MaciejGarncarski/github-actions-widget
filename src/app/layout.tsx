@@ -40,6 +40,7 @@ export default function RootLayout({
           alt=""
           quality={30}
           priority
+          placeholder="blur"
           className="fixed blur-xs h-full lg:w-full -z-10 top-0 object-cover"
         />
         <Providers>{children}</Providers>
