@@ -29,6 +29,7 @@ export const BgImage = () => {
           height={1080}
           alt=""
           priority
+          unoptimized
           className="fixed blur-xs h-[100dvh] lg:w-full -z-10 left-0 top-0 object-cover"
         />
       )}
