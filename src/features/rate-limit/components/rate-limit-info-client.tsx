@@ -39,7 +39,7 @@ export const RateLimitInfoClient = ({
       } catch {
         return;
       }
-    }, 250);
+    }, 100);
 
     return () => {
       if (timerRef.current) {
