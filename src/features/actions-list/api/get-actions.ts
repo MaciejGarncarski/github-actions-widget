@@ -1,6 +1,7 @@
 import { ACTIONS_PER_PAGE } from "@/constants/actions";
 import { fetcher } from "@/lib/fetcher";
-import { actionsSchema } from "@/schemas/actions";
+import { actionsSchema, actionsSchemaApi } from "@/schemas/actions";
+import { rateLimitSchema } from "@/schemas/rate-limit";
 import {
   InfiniteData,
   infiniteQueryOptions,
@@ -8,19 +9,20 @@ import {
 } from "@tanstack/react-query";
 import z from "zod";
 
-type Data = {
-  owner: string;
-  token: string | null;
-  repo: string;
-};
-
 type GithubRunsPage = {
   workflow_runs: z.infer<typeof actionsSchema>["workflow_runs"];
   nextPage?: number;
+  rate_limit: z.infer<typeof rateLimitSchema> | null;
 } | null;
 
-export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
-  infiniteQueryOptions<
+type Data = {
+  owner?: string;
+  token?: string | null;
+  repo?: string;
+};
+
+export const getActionsQueryOptions = ({ owner, repo, token }: Data) => {
+  return infiniteQueryOptions<
     GithubRunsPage,
     Error,
     InfiniteData<GithubRunsPage>,
@@ -35,11 +37,12 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
     queryKey: ["actions", repo],
     refetchOnWindowFocus: true,
     refetchOnMount: false,
+    enabled: Boolean(owner) && Boolean(repo) && Boolean(token),
     queryFn: async ({ pageParam }) => {
       const response = await fetcher({
         method: "GET",
         url: `${process.env.NEXT_PUBLIC_APP_URL}/api/actions?owner=${owner}&repo=${repo}&page=${pageParam}`,
-        schema: actionsSchema,
+        schema: actionsSchemaApi,
         headers: {
           "X-API-KEY": token || "",
         },
@@ -50,6 +53,7 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
       }
 
       return {
+        rate_limit: response.data.rate_limit,
         workflow_runs: response.data.workflow_runs,
         nextPage:
           response.data.total_count > pageParam * ACTIONS_PER_PAGE
@@ -58,6 +62,7 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) =>
       };
     },
   });
+};
 
 export const useGetActions = (data: Data) => {
   return useSuspenseInfiniteQuery(getActionsQueryOptions(data));

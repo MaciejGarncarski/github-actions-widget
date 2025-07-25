@@ -1,12 +1,9 @@
 import { ACTIONS_PER_PAGE } from "@/constants/actions";
-import { cookieCientSide } from "@/constants/cookie";
 import { fetcher } from "@/lib/fetcher";
 import { actionsSchema } from "@/schemas/actions";
-import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const appCookies = await cookies();
   const searchParams = request.nextUrl.searchParams;
   const repo = searchParams.get("repo");
   const owner = searchParams.get("owner");
@@ -34,16 +31,6 @@ export async function GET(request: NextRequest) {
     Number(response.headers["x-ratelimit-reset"]) * 1000
   );
 
-  appCookies.set(
-    "rateLimit",
-    JSON.stringify({
-      rateLimitReset,
-      rateLimitTotal,
-      rateLimitUsed,
-    }),
-    cookieCientSide
-  );
-
   if (response.isError) {
     return new Response(JSON.stringify({ message: "error" }), { status: 500 });
   }
@@ -56,6 +43,7 @@ export async function GET(request: NextRequest) {
   });
 
   const responseData = {
+    rate_limit: { rateLimitReset, rateLimitTotal, rateLimitUsed },
     total_count: response.data.total_count,
     workflow_runs: sortedData,
   };

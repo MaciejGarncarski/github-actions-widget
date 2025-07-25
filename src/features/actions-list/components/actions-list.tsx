@@ -112,7 +112,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                       conclusion && conclusionBackgroundColors[conclusion]
                     )}
                   >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <a href={html_url} target="_blank">
                         <h2 className="text-xl font-bold">
                           {name} - {display_title}

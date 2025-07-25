@@ -20,7 +20,6 @@ export default async function Home() {
   const appCookies = await cookies();
   const [token, repo] = await Promise.all([getPAT(), getRepo()]);
   const cookiesAccepted = appCookies.get("selectedRepo");
-  const rateLimitData = appCookies.get("rateLimit")?.value;
   const queryClient = getQueryClient();
 
   const response = await fetcher({
@@ -66,15 +65,21 @@ export default async function Home() {
           <Suspense fallback={<SelectLoadingSkeleton />}>
             <ReposSelect token={token || ""} repo={repo || ""} />
           </Suspense>
+        </HydrationBoundary>
 
+        <HydrationBoundary state={dehydrate(queryClient)}>
           {token && (
             <>
               <Suspense
                 fallback={
-                  <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/20"></div>
+                  <div className="min-h-24 mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/20"></div>
                 }
               >
-                <RateLimitInfo rateLimitData={rateLimitData || ""} />
+                <RateLimitInfo
+                  token={token}
+                  owner={username}
+                  repo={repo || ""}
+                />
               </Suspense>
 
               <Suspense fallback={<SkeletonLoading />}>

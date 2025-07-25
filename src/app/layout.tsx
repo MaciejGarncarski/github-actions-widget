@@ -35,7 +35,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <CookieBannerContainer />
         </Suspense>
-        <footer className="flex justify-between rounded-lg border border-white/20 backdrop-blur-2xl bg-black/30 p-3 fixed bottom-4 w-[22rem] right-4">
+        <footer className="flex justify-between rounded-lg border border-white/20 backdrop-blur-2xl bg-black/30 p-2 xl:p-3 fixed bottom-2 text-sm xl:text-base xl:bottom-4 w-[21rem] -translate-x-1/2 xl:translate-0 left-1/2 xl:left-[unset] xl:right-4">
           <a
             href="https://github.com/maciejgarncarski/github-actions-widget"
             target="_blank"
