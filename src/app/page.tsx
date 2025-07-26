@@ -17,12 +17,11 @@ import { SelectLoadingSkeleton } from "@/features/repo-select/components/select-
 import { RateLimitInfo } from "@/features/rate-limit/components/rate-limit-info";
 
 export default async function Home() {
+  const queryClient = getQueryClient();
   const appCookies = await cookies();
   const [token, repo] = await Promise.all([getPAT(), getRepo()]);
-  const cookiesAccepted = appCookies.get("selectedRepo");
-  const queryClient = getQueryClient();
 
-  const response = await fetcher({
+  const userResponse = fetcher({
     method: "GET",
     url: "https://api.github.com/user",
     schema: userSchema,
@@ -32,7 +31,12 @@ export default async function Home() {
     },
   });
 
-  const username = response.data.login;
+  const [cookiesAccepted, userData] = await Promise.all([
+    appCookies.get("selectedRepo"),
+    userResponse,
+  ]);
+
+  const username = userData.data.login;
 
   if (token) {
     void queryClient.prefetchQuery(getReposQueryOptions(token));
@@ -44,6 +48,8 @@ export default async function Home() {
       })
     );
   }
+
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <div>
@@ -61,13 +67,10 @@ export default async function Home() {
             Settings
           </Link>
         </header>
-        <HydrationBoundary state={dehydrate(queryClient)}>
+        <HydrationBoundary state={dehydratedState}>
           <Suspense fallback={<SelectLoadingSkeleton />}>
             <ReposSelect token={token || ""} repo={repo || ""} />
           </Suspense>
-        </HydrationBoundary>
-
-        <HydrationBoundary state={dehydrate(queryClient)}>
           {token && (
             <>
               <Suspense

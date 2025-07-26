@@ -52,7 +52,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (!repo) {
     return (
-      <p className="mx-auto text-2xl backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
+      <p className="mx-auto text-2xl backdrop-blur-md md:backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
         Select repo first.
       </p>
     );
@@ -60,7 +60,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (data?.pages[0]?.workflow_runs.length === 0) {
     return (
-      <p className="mx-auto text-2xl backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
+      <p className="mx-auto text-2xl backdrop-blur-md md:backdrop-blur-2xl text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
         There are no actions in selected repo.
       </p>
     );
@@ -105,7 +105,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                   <article
                     key={id}
                     className={clsx(
-                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-xl backdrop-blur-2xl backdrop-saturate-110 shadow transition-all duration-300",
+                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-xl backdrop-blur-md md:backdrop-blur-2xl backdrop-saturate-110 shadow transition-all duration-300",
                       conclusion
                         ? conclusionBorderColors[conclusion]
                         : statusBorderColors[status],
@@ -158,7 +158,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
         );
       })}
       {isFetchingNextPage && (
-        <p className="p-6 rounded-xl backdrop-blur-2xl mx-auto w-full text-center bg-black/30  border-white/20 border">
+        <p className="p-6 rounded-xl backdrop-blur-md md:backdrop-blur-2xl mx-auto w-full text-center bg-black/30  border-white/20 border">
           Fetching data...
         </p>
       )}
