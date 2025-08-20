@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  typedRoutes: true,
   experimental: {
     ppr: true,
     cacheComponents: true,
