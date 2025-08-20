@@ -18,13 +18,6 @@ const nextConfig: NextConfig = {
     ],
   },
   typedRoutes: true,
-  experimental: {
-    ppr: true,
-    cacheComponents: true,
-    devtoolSegmentExplorer: true,
-    clientSegmentCache: true,
-    turbopackPersistentCaching: true,
-  },
 };
 
 export default nextConfig;

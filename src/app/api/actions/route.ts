@@ -25,10 +25,10 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  const rateLimitTotal = response.headers["x-ratelimit-limit"];
-  const rateLimitUsed = response.headers["x-ratelimit-used"];
+  const rateLimitTotal = response.headers?.["x-ratelimit-limit"];
+  const rateLimitUsed = response.headers?.["x-ratelimit-used"];
   const rateLimitReset = new Date(
-    Number(response.headers["x-ratelimit-reset"]) * 1000
+    Number(response.headers?.["x-ratelimit-reset"]) * 1000
   );
 
   if (response.isError) {
