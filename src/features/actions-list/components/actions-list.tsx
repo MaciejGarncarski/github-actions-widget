@@ -202,14 +202,14 @@ const conclusionBorderColors: Record<GitHubConclusion, string> = {
 };
 
 const conclusionBackgroundColors: Record<GitHubConclusion, string> = {
-  action_required: "bg-orange-500/25",
-  cancelled: "bg-orange-700/25",
-  failure: "bg-red-500/25",
-  neutral: "bg-gray-500/25",
-  skipped: "bg-blue-500/25",
-  stale: "bg-blue-500/25",
-  success: "bg-green-500/25",
-  timed_out: "bg-orange-500/25",
+  action_required: "bg-orange-800/60",
+  cancelled: "bg-stone-800/60",
+  failure: "bg-red-800/60",
+  neutral: "bg-gray-800/60",
+  skipped: "bg-blue-800/60",
+  stale: "bg-blue-800/60",
+  success: "bg-green-800/60",
+  timed_out: "bg-orange-800/60",
 };
 
 const conclusionIcons: Record<GitHubConclusion, ReactNode> = {
