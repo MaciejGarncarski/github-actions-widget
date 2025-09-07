@@ -1,5 +1,3 @@
-"use cache";
-
 import { fetcher } from "@/lib/fetcher";
 import { userSchema } from "@/schemas/user";
 import {
@@ -8,8 +6,9 @@ import {
 } from "next/cache";
 
 export async function getUser(PAT: string) {
+  "use cache";
   cacheLife("hours");
-  cacheTag("user");
+  cacheTag("user", PAT);
 
   return await fetcher({
     method: "GET",
