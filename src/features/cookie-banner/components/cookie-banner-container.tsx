@@ -5,10 +5,6 @@ export const CookieBannerContainer = async () => {
   const appCookies = await cookies();
   const cookie = appCookies.get("cookiesAccepted");
 
-  if (!cookie?.value) {
-    return null;
-  }
-
   const cookiesAccepted = cookie?.value ? cookie.value === "true" : false;
 
   return <CookieBanner accepted={cookiesAccepted} />;
