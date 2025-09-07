@@ -14,13 +14,13 @@ export const CookieBanner = ({ accepted }: { accepted: boolean }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="border-black/30 border fixed z-20 bottom-4 left-4 right-4 md:left-8 max-w-lg md:right-8 bg-white/10 backdrop-blur-xl rounded-lg p-4 flex flex-col md:flex-row items-center justify-between animate-slide-up">
+    <div className="border-black/20 border fixed z-20 bottom-4 left-4 right-4 md:left-8 max-w-lg md:right-8 bg-white/10 backdrop-blur-xl rounded-lg p-4 flex flex-col md:flex-row items-center justify-between animate-slide-up">
       <p className="text-sm text-white">
         By using this app, you agree to our use of cookies.
       </p>
       <button
         onClick={handleAccept}
-        className="mt-2 md:mt-0 md:ml-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        className="mt-2 md:mt-0 md:ml-4 bg-emerald-800 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 cursor-pointer transition duration-300"
       >
         Accept
       </button>

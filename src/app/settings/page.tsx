@@ -40,7 +40,7 @@ export default async function SettingsPage() {
           <div>Failed to fetch user data.</div>
         ) : (
           <div className="flex flex-col gap-2">
-            <div className="flex w-full justify-between items-center text-gray-600">
+            <div className="flex w-full justify-between items-center text-gray-700">
               <div>
                 <p>{response?.data.name}</p>
                 <p>{response?.data.bio}</p>
