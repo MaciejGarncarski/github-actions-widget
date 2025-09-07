@@ -14,10 +14,10 @@ describe("encryption utils", () => {
     expect(decrypted).toBe(text);
   });
 
-  it("should return original data if decryption fails", () => {
+  it("should return null if decryption fails", () => {
     const invalidEncrypted = "1234";
     const decrypted = decrypt(invalidEncrypted);
-    expect(decrypted).toBe(invalidEncrypted);
+    expect(decrypted).toBe(null);
   });
 
   it("should produce different ciphertexts for the same input (random IV)", () => {
