@@ -46,14 +46,16 @@ export default async function SettingsPage() {
                 <p>{response?.data.bio}</p>
                 <p>{response?.data.location}</p>
               </div>
-              <Image
-                src={response?.data.avatar_url || ""}
-                alt="user avatar"
-                width={80}
-                height={80}
-                quality={100}
-                className="rounded-md aspect-square border border-black/10"
-              />
+              {response?.data.avatar_url ? (
+                <Image
+                  src={response?.data.avatar_url}
+                  alt="user avatar"
+                  width={80}
+                  height={80}
+                  quality={100}
+                  className="rounded-md aspect-square border border-black/10"
+                />
+              ) : null}
             </div>
           </div>
         )}
