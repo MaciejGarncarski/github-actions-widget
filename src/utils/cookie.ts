@@ -1,25 +1,63 @@
 import { cookieConfig } from "@/constants/cookie";
 import { decrypt, encrypt } from "@/utils/encryption";
 import { cookies } from "next/headers";
+import z from "zod";
 
-export const setPATCookie = async (value: string) => {
-  const appCookies = await cookies();
-  const encryptedValue = encrypt(value);
+const configSchema = z.object({
+  PAT: z.string().nullable(),
+  selectedRepo: z.string().nullable(),
+});
 
-  appCookies.set("PAT", encryptedValue, cookieConfig);
+const COOKIE_NAME = "APP_CONFIG";
+
+type ConfigProps = {
+  PAT?: string;
+  selectedRepo?: string;
 };
 
-export const getPAT = async () => {
-  try {
-    const appCookies = await cookies();
-    const PAT = appCookies.get("PAT")?.value;
+export const setConfig = async ({ PAT, selectedRepo }: ConfigProps) => {
+  const appCookies = await cookies();
+  const prevConfig = await getConfig();
 
-    if (!PAT) {
-      return null;
+  const newConfig = {
+    selectedRepo: selectedRepo || prevConfig.selectedRepo,
+    PAT: PAT ? encrypt(PAT) : prevConfig.PAT ? encrypt(prevConfig.PAT) : null,
+  };
+
+  appCookies.set(COOKIE_NAME, JSON.stringify(newConfig), cookieConfig);
+};
+
+export const getConfig = async (): Promise<z.infer<typeof configSchema>> => {
+  const appCookies = await cookies();
+  const cookie = appCookies.get(COOKIE_NAME);
+
+  try {
+    if (!cookie?.value) {
+      throw new Error("no cookie value");
     }
 
-    return decrypt(PAT);
-  } catch {
-    return null;
+    const configData = JSON.parse(decodeURIComponent(cookie.value));
+
+    const parsed = configSchema.safeParse(configData);
+
+    if (parsed.error) {
+      return {
+        selectedRepo: null,
+        PAT: null,
+      };
+    }
+
+    const decryptedPAT = decrypt(parsed.data.PAT || "");
+
+    return {
+      selectedRepo: parsed.data.selectedRepo,
+      PAT: decryptedPAT,
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      selectedRepo: null,
+      PAT: null,
+    };
   }
 };

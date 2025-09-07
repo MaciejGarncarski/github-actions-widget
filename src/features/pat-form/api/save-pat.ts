@@ -1,7 +1,7 @@
 "use server";
 import * as z from "zod";
 
-import { setPATCookie } from "@/utils/cookie";
+import { setConfig } from "@/utils/cookie";
 import { redirect } from "next/navigation";
 
 const PATSchema = z.object({
@@ -20,7 +20,9 @@ export async function savePAT(prevState: string, formData: FormData) {
     return "invalid-token";
   }
 
-  await setPATCookie(parsed.data.PAT);
+  await setConfig({
+    PAT: parsed.data.PAT,
+  });
 
   throw redirect("/");
 }

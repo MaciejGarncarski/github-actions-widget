@@ -1,23 +1,18 @@
 import { PATForm } from "@/features/pat-form/components/pat-form";
-import { fetcher } from "@/lib/fetcher";
-import { userSchema } from "@/schemas/user";
-import { getPAT } from "@/utils/cookie";
+import { getConfig } from "@/utils/cookie";
+import { getUser } from "@/utils/get-user";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function SettingsPage() {
-  const token = await getPAT();
+  const config = await getConfig();
 
-  const response = await fetcher({
-    method: "GET",
-    url: "https://api.github.com/user",
-    schema: userSchema,
-    cache: "force-cache",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  let response = null;
+
+  if (config?.PAT) {
+    response = await getUser(config.PAT);
+  }
 
   return (
     <main className="flex flex-col gap-8 max-w-3xl mx-auto">
@@ -36,23 +31,23 @@ export default async function SettingsPage() {
       </header>
       <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/20 bg-black/10 flex flex-col gap-4">
         <h2 className="text-2xl">Token Settings</h2>
-        <PATForm token={token || ""} />
+        <PATForm token={config?.PAT || ""} />
       </div>
 
       <div className="p-6 backdrop-blur-3xl rounded-xl border border-white/20 bg-black/10">
         <h2 className="text-2xl">User Account Info</h2>
-        {response.isError ? (
+        {response && response.isError ? (
           <div>Failed to fetch user data.</div>
         ) : (
           <div className="flex flex-col gap-2">
             <div className="flex w-full justify-between items-center">
               <div>
-                <p>{response.data.name}</p>
-                <p>{response.data.bio}</p>
-                <p>{response.data.location}</p>
+                <p>{response?.data.name}</p>
+                <p>{response?.data.bio}</p>
+                <p>{response?.data.location}</p>
               </div>
               <Image
-                src={response.data.avatar_url}
+                src={response?.data.avatar_url || ""}
                 alt="user avatar"
                 width={80}
                 height={80}

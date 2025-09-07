@@ -7,6 +7,7 @@ export const getReposQueryOptions = (token: string) =>
     queryKey: ["repos"],
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    staleTime: 1000 * 60 * 3,
     queryFn: async () => {
       const response = await fetcher({
         method: "GET",

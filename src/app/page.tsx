@@ -1,50 +1,32 @@
 import { ActionsList } from "@/features/actions-list/components/actions-list";
 import { ReposSelect } from "@/features/repo-select/components/repos-select";
 import { getReposQueryOptions } from "@/features/repo-select/api/get-repos";
-import { getPAT } from "@/utils/cookie";
+import { getConfig } from "@/utils/cookie";
 import { getQueryClient } from "@/utils/get-query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Settings } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getRepo } from "@/features/repo-select/api/set-selected-repo";
-import { userSchema } from "@/schemas/user";
-import { fetcher } from "@/lib/fetcher";
 import { SkeletonLoading } from "@/features/actions-list/components/skeleton-loading";
 import { getActionsQueryOptions } from "@/features/actions-list/api/get-actions";
-import { cookies } from "next/headers";
 import { SelectLoadingSkeleton } from "@/features/repo-select/components/select-loading-skeleton";
 import { RateLimitInfo } from "@/features/rate-limit/components/rate-limit-info";
+import { getUser } from "@/utils/get-user";
 
 export default async function Home() {
   const queryClient = getQueryClient();
-  const appCookies = await cookies();
-  const [token, repo] = await Promise.all([getPAT(), getRepo()]);
+  const config = await getConfig();
 
-  const userResponse = fetcher({
-    method: "GET",
-    url: "https://api.github.com/user",
-    schema: userSchema,
-    cache: "force-cache",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const userResponse = await getUser(config.PAT || "");
+  const username = userResponse.data.login;
 
-  const [cookiesAccepted, userData] = await Promise.all([
-    appCookies.get("selectedRepo"),
-    userResponse,
-  ]);
-
-  const username = userData.data.login;
-
-  if (token) {
-    void queryClient.prefetchQuery(getReposQueryOptions(token));
+  if (config?.PAT) {
+    void queryClient.prefetchQuery(getReposQueryOptions(config.PAT));
     void queryClient.prefetchInfiniteQuery(
       getActionsQueryOptions({
         owner: username,
-        token: token,
-        repo: cookiesAccepted?.value || "",
+        token: config.PAT,
+        repo: config?.selectedRepo || "",
       })
     );
   }
@@ -69,9 +51,12 @@ export default async function Home() {
         </header>
         <HydrationBoundary state={dehydratedState}>
           <Suspense fallback={<SelectLoadingSkeleton />}>
-            <ReposSelect token={token || ""} repo={repo || ""} />
+            <ReposSelect
+              token={config?.PAT || ""}
+              repo={config?.selectedRepo || ""}
+            />
           </Suspense>
-          {token && (
+          {config?.PAT && (
             <>
               <Suspense
                 fallback={
@@ -79,17 +64,17 @@ export default async function Home() {
                 }
               >
                 <RateLimitInfo
-                  token={token}
+                  token={config.PAT}
                   owner={username}
-                  repo={repo || ""}
+                  repo={config?.selectedRepo || ""}
                 />
               </Suspense>
 
               <Suspense fallback={<SkeletonLoading />}>
                 <ActionsList
-                  repo={repo || null}
+                  repo={config?.selectedRepo || null}
                   owner={username}
-                  token={token}
+                  token={config.PAT}
                 />
               </Suspense>
             </>
