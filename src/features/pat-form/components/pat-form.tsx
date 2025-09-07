@@ -23,7 +23,7 @@ export function PATForm({ token }: { token: string }) {
       />
       <button
         type="submit"
-        className="cursor-pointer bg-black/10 border-white/40 border p-2 backdrop-blur-2xl rounded-md"
+        className="cursor-pointer bg-white/10 border-white/20 border p-2 backdrop-blur-2xl rounded-md"
       >
         {isPending ? <p>Saving...</p> : "Save"}
       </button>
