@@ -10,7 +10,7 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
 
   if (isError || !data) {
     return (
-      <div className="text-center p-6 backdrop-blur-3xl w-fit bg-white/10 border border-white/20 text-orange-200 rounded-lg mx-auto flex flex-col gap-4">
+      <div className="text-center p-6 backdrop-blur-3xl w-fit bg-slate-300/10 border border-white/20 text-orange-200 rounded-lg mx-auto flex flex-col gap-4">
         <p>
           Cannot fetch repos, please provide valid PERSONAL ACCESS TOKEN in{" "}
           <Link href="/settings" className="underline" prefetch>
@@ -51,7 +51,7 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
   });
 
   return (
-    <div className="p-4 flex flex-col md:flex-row justify-center gap-2 h-24 md:gap-4 md:h-20 border border-white/20 items-center bg-white/10 backdrop-blur-2xl rounded-lg">
+    <div className="p-4 flex flex-col md:flex-row justify-center gap-2 h-24 md:gap-4 md:h-20 border border-white/20 items-center bg-slate-300/10 backdrop-blur-2xl rounded-lg">
       <label htmlFor="selectRepo" className="text-xl">
         Selected reposiotry:
       </label>

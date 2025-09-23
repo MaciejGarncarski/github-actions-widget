@@ -18,7 +18,7 @@ export default async function Home() {
   const config = await getConfig();
 
   const userResponse = await getUser(config.PAT || "");
-  const username = userResponse.data.login;
+  const username = userResponse?.data?.login;
 
   if (config?.PAT) {
     void queryClient.prefetchQuery(getReposQueryOptions(config.PAT));
@@ -43,7 +43,7 @@ export default async function Home() {
           <Link
             prefetch
             href={"/settings"}
-            className="flex gap-2 items-center backdrop-blur-2xl bg-white/10 px-3 py-2 rounded-lg border border-white/20"
+            className="flex gap-2 items-center backdrop-blur-2xl bg-slate-300/10 px-3 py-2 rounded-lg border border-white/20"
           >
             <Settings size={18} />
             Settings

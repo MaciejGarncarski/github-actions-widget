@@ -158,7 +158,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
         );
       })}
       {isFetchingNextPage && (
-        <p className="p-6 rounded-lg backdrop-blur-lg mx-auto w-full text-center bg-white/10 border-white/20 border">
+        <p className="p-6 rounded-lg backdrop-blur-lg mx-auto w-full text-center bg-slate-300/10 border-white/20 border">
           Fetching data...
         </p>
       )}

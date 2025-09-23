@@ -26,7 +26,7 @@ export const RateLimitInfo = ({
     data.pages[data.pages.length - 1]?.rate_limit?.rateLimitReset || new Date();
 
   return (
-    <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border bg-white/10  border-white/20">
+    <div className="mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border bg-slate-300/10  border-white/20">
       <p>
         API Limits: {used} / {total}
       </p>

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     cacheComponents: true,
+    turbopackPersistentCaching: true,
+    routerBFCache: true,
   },
   typescript: {
     ignoreBuildErrors: true,
