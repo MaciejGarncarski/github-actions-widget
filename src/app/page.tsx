@@ -49,37 +49,39 @@ export default async function Home() {
             Settings
           </Link>
         </header>
-        <HydrationBoundary state={dehydratedState}>
-          <Suspense fallback={<SelectLoadingSkeleton />}>
-            <ReposSelect
-              token={config?.PAT || ""}
-              repo={config?.selectedRepo || ""}
-            />
-          </Suspense>
-          {config?.PAT && (
-            <>
-              <Suspense
-                fallback={
-                  <div className="min-h-24 mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/20"></div>
-                }
-              >
-                <RateLimitInfo
-                  token={config.PAT}
-                  owner={username}
-                  repo={config?.selectedRepo || ""}
-                />
-              </Suspense>
+        <Suspense fallback={<SkeletonLoading />}>
+          <HydrationBoundary state={dehydratedState}>
+            <Suspense fallback={<SelectLoadingSkeleton />}>
+              <ReposSelect
+                token={config?.PAT || ""}
+                repo={config?.selectedRepo || ""}
+              />
+            </Suspense>
+            {config?.PAT && (
+              <>
+                <Suspense
+                  fallback={
+                    <div className="min-h-24 mx-auto text-lg backdrop-blur-2xl text-center w-full px-6 py-3 rounded-lg shadow border border-white/20"></div>
+                  }
+                >
+                  <RateLimitInfo
+                    token={config.PAT}
+                    owner={username}
+                    repo={config?.selectedRepo || ""}
+                  />
+                </Suspense>
 
-              <Suspense fallback={<SkeletonLoading />}>
-                <ActionsList
-                  repo={config?.selectedRepo || null}
-                  owner={username}
-                  token={config.PAT}
-                />
-              </Suspense>
-            </>
-          )}
-        </HydrationBoundary>
+                <Suspense fallback={<SkeletonLoading />}>
+                  <ActionsList
+                    repo={config?.selectedRepo || null}
+                    owner={username}
+                    token={config.PAT}
+                  />
+                </Suspense>
+              </>
+            )}
+          </HydrationBoundary>
+        </Suspense>
       </main>
     </div>
   );
