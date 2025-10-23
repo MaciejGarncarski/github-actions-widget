@@ -5,8 +5,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
 export function ReposSelect({ token, repo }: { token: string; repo: string }) {
-  const { data, isError } = useGetRepos(token);
+  const { data, isError, isLoading } = useGetRepos(token);
   const queryClient = useQueryClient();
+
+  if (isLoading) {
+    return null;
+  }
 
   if (isError || !data) {
     return (

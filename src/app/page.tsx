@@ -17,7 +17,7 @@ export default async function Home() {
   const queryClient = getQueryClient();
   const config = await getConfig();
 
-  const userResponse = await getUser(config.PAT || "");
+  const userResponse = await getUser(config?.PAT || "");
   const username = userResponse?.data?.login;
 
   if (config?.PAT) {

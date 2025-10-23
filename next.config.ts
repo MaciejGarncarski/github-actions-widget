@@ -6,16 +6,12 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+  cacheComponents: true,
   experimental: {
-    cacheComponents: true,
-    turbopackPersistentCaching: true,
-    routerBFCache: true,
+    turbopackFileSystemCacheForDev: true,
   },
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   images: {
     qualities: [10, 50, 100],

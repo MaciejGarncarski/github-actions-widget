@@ -20,20 +20,22 @@ export const setConfig = async ({ PAT, selectedRepo }: ConfigProps) => {
   const prevConfig = await getConfig();
 
   const newConfig = {
-    selectedRepo: selectedRepo || prevConfig.selectedRepo,
-    PAT: PAT ? encrypt(PAT) : prevConfig.PAT ? encrypt(prevConfig.PAT) : null,
+    selectedRepo: selectedRepo || prevConfig?.selectedRepo,
+    PAT: PAT ? encrypt(PAT) : prevConfig?.PAT ? encrypt(prevConfig.PAT) : null,
   };
 
   appCookies.set(COOKIE_NAME, JSON.stringify(newConfig), cookieConfig);
 };
 
-export const getConfig = async (): Promise<z.infer<typeof configSchema>> => {
+export const getConfig = async (): Promise<z.infer<
+  typeof configSchema
+> | null> => {
   const appCookies = await cookies();
   const cookie = appCookies.get(COOKIE_NAME);
 
   try {
     if (!cookie?.value) {
-      throw new Error("no cookie value");
+      return null;
     }
 
     const configData = JSON.parse(decodeURIComponent(cookie.value));

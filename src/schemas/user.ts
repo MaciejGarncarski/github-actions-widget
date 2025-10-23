@@ -35,12 +35,6 @@ export const userSchema = z.object({
   following: z.number().int(),
   created_at: z.string(),
   updated_at: z.string(),
-  private_gists: z.number().int(),
-  total_private_repos: z.number().int(),
-  owned_private_repos: z.number().int(),
-  disk_usage: z.number().int(),
-  collaborators: z.number().int(),
-  two_factor_authentication: z.boolean(),
   plan: z
     .object({
       collaborators: z.number().int(),

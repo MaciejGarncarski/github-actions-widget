@@ -32,8 +32,6 @@ export async function GET(request: NextRequest) {
   );
 
   if (response.isError) {
-    console.log(response.errorMessage);
-
     return new Response(JSON.stringify({ message: "error" }), { status: 500 });
   }
 

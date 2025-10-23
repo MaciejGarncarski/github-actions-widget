@@ -36,7 +36,10 @@ export default async function SettingsPage() {
 
       <div className="p-6 backdrop-blur-xl rounded-xl border border-white/20 bg-slate-300/15 flex flex-col gap-4">
         <h2 className="text-2xl">User Account Info</h2>
-        {response && response.isError ? (
+
+        {response === null ? (
+          <div>No token provided.</div>
+        ) : response?.isError ? (
           <div>Failed to fetch user data.</div>
         ) : (
           <div className="flex flex-col gap-4">
