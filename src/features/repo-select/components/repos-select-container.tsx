@@ -8,14 +8,13 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 export const ResposSelectContainer = async () => {
   const config = await getConfig();
   const token = config?.PAT;
-  const repo = config?.selectedRepo;
+  const repo = config?.selectedRepo || null;
 
-  if (!token || !repo) {
+  if (!token) {
     return <PatError />;
   }
 
   const queryClient = getQueryClient();
-
   void queryClient.prefetchQuery(getReposQueryOptions(token));
 
   return (

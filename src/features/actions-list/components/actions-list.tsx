@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetActions } from "@/features/actions-list/api/get-actions";
-import { SkeletonLoading } from "@/features/actions-list/components/skeleton-loading";
+import { SkeletonActionsList } from "@/features/actions-list/components/skeleton-loading";
 import { TimeElapsed } from "@/features/actions-list/components/time-elapsed";
 import { ActionStatus, GitHubConclusion } from "@/schemas/actions";
 import clsx from "clsx";
@@ -29,18 +29,12 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, token, repo }: Props) => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isFetching,
-    isRefetching,
-  } = useGetActions({
-    owner,
-    token,
-    repo: repo || "",
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+    useGetActions({
+      owner,
+      token,
+      repo: repo || "",
+    });
 
   const { ref } = useInView({
     onChange: (isVisible) => {
@@ -66,8 +60,8 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
     );
   }
 
-  if (isFetching && !isFetchingNextPage && !isRefetching) {
-    return <SkeletonLoading />;
+  if (isFetching && !isFetchingNextPage) {
+    return <SkeletonActionsList />;
   }
 
   return (

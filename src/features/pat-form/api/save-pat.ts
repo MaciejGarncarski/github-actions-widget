@@ -3,6 +3,7 @@ import * as z from "zod";
 
 import { setConfig } from "@/utils/cookie";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const PATSchema = z.object({
   PAT: z
@@ -24,5 +25,6 @@ export async function savePAT(prevState: string, formData: FormData) {
     PAT: parsed.data.PAT,
   });
 
+  revalidatePath("/");
   throw redirect("/");
 }

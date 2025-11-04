@@ -1,11 +1,11 @@
 import { cookieConfig } from "@/constants/cookie";
 import { decrypt, encrypt } from "@/utils/encryption";
 import { cookies } from "next/headers";
-import z from "zod";
+import z, { config } from "zod";
 
 const configSchema = z.object({
   PAT: z.string().nullable(),
-  selectedRepo: z.string().nullable(),
+  selectedRepo: z.string().nullable().optional(),
 });
 
 const COOKIE_NAME = "APP_CONFIG";
@@ -39,7 +39,6 @@ export const getConfig = async (): Promise<z.infer<
     }
 
     const configData = JSON.parse(decodeURIComponent(cookie.value));
-
     const parsed = configSchema.safeParse(configData);
 
     if (parsed.error) {

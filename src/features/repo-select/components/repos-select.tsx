@@ -9,7 +9,7 @@ export function ReposSelect({
   repo,
 }: {
   token: string | null;
-  repo: string;
+  repo: string | null;
 }) {
   const { data, isError, isLoading } = useGetRepos(token);
   const queryClient = useQueryClient();
