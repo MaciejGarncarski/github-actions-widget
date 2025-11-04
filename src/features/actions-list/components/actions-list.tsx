@@ -52,7 +52,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (!repo) {
     return (
-      <p className="mx-auto text-2xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
+      <p className="mx-auto text-xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
         Select repo first.
       </p>
     );
@@ -60,7 +60,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (data?.pages[0]?.workflow_runs.length === 0) {
     return (
-      <p className="mx-auto text-2xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-lg shadow border border-white/20">
+      <p className="mx-auto text-xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
         There are no actions in selected repo.
       </p>
     );
@@ -158,7 +158,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
         );
       })}
       {isFetchingNextPage && (
-        <p className="p-6 rounded-lg backdrop-blur-lg mx-auto w-full text-center bg-slate-300/10 border-white/20 border">
+        <p className="p-8 rounded-xl backdrop-blur-lg mx-auto w-full text-center bg-primary border-slate-400/20 border">
           Fetching data...
         </p>
       )}

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./mesh.css";
 import Providers from "@/components/providers";
 import { CookieBannerContainer } from "@/features/cookie-banner/components/cookie-banner-container";
 import { Suspense } from "react";
-import { BgImage } from "@/components/bg-image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,14 +30,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8 relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased p-3 md:p-8 relative mesh-bg bg-fixed`}
       >
-        <BgImage />
         <Providers>{children}</Providers>
         <Suspense fallback={null}>
           <CookieBannerContainer />
         </Suspense>
-        <footer className="flex justify-center items-center rounded-lg border border-white/20 backdrop-blur-2xl bg-black/10 p-2 xl:p-3 fixed bottom-2 text-sm xl:text-base xl:bottom-4 w-[8rem] -translate-x-1/2 xl:translate-0 left-1/2 xl:left-[unset] xl:right-4">
+        <footer className="flex justify-center items-center rounded-lg border border-slate-400/20 backdrop-blur-2xl bg-black/10 p-2 xl:p-3 fixed bottom-2 text-sm xl:text-base xl:bottom-4 w-[8rem] -translate-x-1/2 xl:translate-0 left-1/2 xl:left-[unset] xl:right-4">
           <a
             href="https://github.com/maciejgarncarski/github-actions-widget"
             target="_blank"

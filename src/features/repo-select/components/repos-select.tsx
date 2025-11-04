@@ -1,41 +1,21 @@
 "use client";
 import { useGetRepos } from "@/features/repo-select/api/get-repos";
 import { setSelectedRepo } from "@/features/repo-select/api/set-selected-repo";
+import { PatError } from "@/features/repo-select/components/pat-error";
 import { useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
 
-export function ReposSelect({ token, repo }: { token: string; repo: string }) {
+export function ReposSelect({
+  token,
+  repo,
+}: {
+  token: string | null;
+  repo: string;
+}) {
   const { data, isError, isLoading } = useGetRepos(token);
   const queryClient = useQueryClient();
 
-  if (isLoading) {
-    return null;
-  }
-
   if (isError || !data) {
-    return (
-      <div className="text-center p-6 backdrop-blur-3xl w-fit bg-slate-300/10 border border-white/20 text-orange-200 rounded-lg mx-auto flex flex-col gap-4">
-        <p>
-          Cannot fetch repos, please provide valid PERSONAL ACCESS TOKEN in{" "}
-          <Link href="/settings" className="underline" prefetch>
-            settings
-          </Link>
-          .
-        </p>
-        <div className="flex gap-4 justify-center">
-          <a href="pat-permissions.png" target="_blank" className="underline">
-            Needed Permissions
-          </a>
-          <a
-            href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token"
-            target="_blank"
-            className="underline"
-          >
-            How to create Personal Access Tokens
-          </a>
-        </div>
-      </div>
-    );
+    return <PatError />;
   }
 
   const sortedData = data.toSorted((a, b) => {
@@ -55,7 +35,7 @@ export function ReposSelect({ token, repo }: { token: string; repo: string }) {
   });
 
   return (
-    <div className="p-4 flex flex-col md:flex-row justify-center gap-2 h-24 md:gap-4 md:h-20 border border-white/20 items-center bg-slate-300/10 backdrop-blur-2xl rounded-lg">
+    <div className="p-4 flex flex-col md:flex-row justify-center gap-2 h-24 md:gap-4 md:h-20 border border-slate-400/20 items-center bg-primary backdrop-blur-2xl rounded-lg">
       <label htmlFor="selectRepo" className="text-xl">
         Selected reposiotry:
       </label>

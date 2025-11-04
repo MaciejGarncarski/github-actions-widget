@@ -2,8 +2,8 @@ import { fetcher } from "@/lib/fetcher";
 import { reposSchema } from "@/schemas/repos";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getReposQueryOptions = (token: string) =>
-  queryOptions({
+export const getReposQueryOptions = (token: string | null) => {
+  return queryOptions({
     queryKey: ["repos"],
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -16,6 +16,7 @@ export const getReposQueryOptions = (token: string) =>
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        headersStrategy: "overwrite",
       });
 
       if (response.isError) {
@@ -25,7 +26,7 @@ export const getReposQueryOptions = (token: string) =>
       return response.data;
     },
   });
-
-export const useGetRepos = (token: string) => {
+};
+export const useGetRepos = (token: string | null) => {
   return useSuspenseQuery(getReposQueryOptions(token));
 };

@@ -11,7 +11,7 @@ export default function LoadingApp() {
         <Link
           prefetch
           href={"/settings"}
-          className="flex gap-2 items-center backdrop-blur-2xl bg-slate-300/10 px-3 py-2 rounded-lg border border-white/20"
+          className="flex gap-2 items-center backdrop-blur-2xl bg-primary px-3 py-2 rounded-lg border border-slate-400/20"
         >
           <Settings size={18} />
           Settings
