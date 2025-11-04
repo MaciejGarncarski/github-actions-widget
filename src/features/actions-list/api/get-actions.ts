@@ -71,7 +71,7 @@ export const getActionsQueryOptions = (
 
 export const useGetActions = (
   data: Data,
-  setIsManualRefetching: (val: boolean) => void
+  setIsManualRefetching?: (val: boolean) => void
 ) => {
   return useSuspenseInfiniteQuery(
     getActionsQueryOptions(data, setIsManualRefetching)

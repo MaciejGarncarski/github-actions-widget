@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const PatError = () => {
   return (
-    <div className="text-center p-6 backdrop-blur-3xl w-full bg-primary border border-slate-400/20 text-orange-300 rounded-lg mx-auto flex flex-col gap-4">
+    <div className="text-center p-6 w-full bg-primary border border-slate-400/20 text-orange-300 rounded-lg mx-auto flex flex-col gap-4">
       <p>
         Cannot fetch repos, please provide valid PERSONAL ACCESS TOKEN in{" "}
         <Link href="/settings" className="underline" prefetch>

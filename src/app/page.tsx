@@ -18,7 +18,7 @@ export default async function Home() {
           <Link
             prefetch
             href={"/settings"}
-            className="flex gap-2 items-center backdrop-blur-2xl bg-primary px-3 py-2 rounded-lg border border-primary/20"
+            className="flex gap-2 items-center bg-primary px-3 py-2 rounded-lg border border-primary/20"
           >
             <Settings size={18} />
             Settings

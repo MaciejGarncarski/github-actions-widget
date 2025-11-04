@@ -51,7 +51,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (!repo) {
     return (
-      <p className="mx-auto text-xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
+      <p className="mx-auto text-xl text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
         Select repo first.
       </p>
     );
@@ -59,7 +59,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
 
   if (data?.pages[0]?.workflow_runs.length === 0) {
     return (
-      <p className="mx-auto text-xl backdrop-blur-lg text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
+      <p className="mx-auto text-xl text-center w-fit my-10 px-6 py-3 rounded-md bg-primary shadow border border-slate-400/20">
         There are no actions in selected repo.
       </p>
     );
@@ -104,11 +104,13 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                   <article
                     key={id}
                     className={clsx(
-                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-lg backdrop-blur-lg backdrop-saturate-110 shadow transition-all duration-300",
+                      "flex flex-col gap-2 p-4 min-h-32 w-full border rounded-lg backdrop-saturate-110 shadow transition-all duration-300",
                       conclusion
                         ? conclusionBorderColors[conclusion]
                         : statusBorderColors[status],
-                      conclusion && conclusionBackgroundColors[conclusion]
+                      conclusion
+                        ? conclusionBackgroundColors[conclusion]
+                        : statusBackgroundColors[status]
                     )}
                   >
                     <div className="flex justify-between gap-2">
@@ -157,7 +159,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
         );
       })}
       {isFetchingNextPage && (
-        <p className="p-8 rounded-xl backdrop-blur-lg mx-auto w-full text-center bg-primary border-slate-400/20 border">
+        <p className="p-8 rounded-xl mx-auto w-full text-center bg-primary border-slate-400/20 border">
           Fetching data...
         </p>
       )}
@@ -201,14 +203,20 @@ const conclusionBorderColors: Record<GitHubConclusion, string> = {
 };
 
 const conclusionBackgroundColors: Record<GitHubConclusion, string> = {
-  action_required: "bg-orange-900/55",
-  cancelled: "bg-stone-900/55",
-  failure: "bg-red-900/55",
-  neutral: "bg-gray-900/55",
-  skipped: "bg-blue-900/55",
-  stale: "bg-blue-900/55",
-  success: "bg-green-900/55",
-  timed_out: "bg-orange-900/55",
+  action_required: "bg-orange-900/50",
+  cancelled: "bg-stone-900/50",
+  failure: "bg-red-900/50",
+  neutral: "bg-gray-900/50",
+  skipped: "bg-blue-900/50",
+  stale: "bg-blue-900/50",
+  success: "bg-green-900/50",
+  timed_out: "bg-orange-900/50",
+};
+
+const statusBackgroundColors: Record<ActionStatus, string> = {
+  completed: "bg-green-900/50",
+  in_progress: "bg-orange-800/50",
+  queued: "bg-blue-900/50",
 };
 
 const conclusionIcons: Record<GitHubConclusion, ReactNode> = {

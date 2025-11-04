@@ -23,18 +23,18 @@ export default async function SettingsPage() {
         <Link
           prefetch
           href={"/"}
-          className="flex gap-2 items-center backdrop-blur-lg bg-primary px-3 py-2 rounded-lg border border-slate-400/20"
+          className="flex gap-2 items-center bg-primary px-3 py-2 rounded-lg border border-slate-400/20"
         >
           <ChevronLeft size={18} />
           Back
         </Link>
       </header>
-      <div className="p-6 backdrop-blur-lg rounded-xl border border-slate-400/20 bg-primary flex flex-col gap-4">
+      <div className="p-6 rounded-xl border border-slate-400/20 bg-primary flex flex-col gap-4">
         <h2 className="text-2xl">Token Settings</h2>
         <PATForm token={config?.PAT || ""} />
       </div>
 
-      <div className="p-6 backdrop-blur-xl rounded-xl border border-slate-400/20 bg-primary flex flex-col gap-4">
+      <div className="p-6 rounded-xl border border-slate-400/20 bg-primary flex flex-col gap-4">
         <h2 className="text-2xl">User Account Info</h2>
 
         {response === null ? (

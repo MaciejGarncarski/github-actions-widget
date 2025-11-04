@@ -14,7 +14,7 @@ export function PATForm({ token }: { token: string }) {
         defaultValue={token}
         name="PAT"
         className={clsx(
-          "border rounded-sm p-2 text-xl backdrop-blur-3xl text-black",
+          "border rounded-sm p-2 text-xl text-black",
           state === "" && "bg-white",
           state === "invalid-token" && "border-red-500 bg-red-200/60",
           state === "error" && "border-red-500 bg-red-200/60",
@@ -23,7 +23,7 @@ export function PATForm({ token }: { token: string }) {
       />
       <button
         type="submit"
-        className="cursor-pointer bg-slate-400/30 ml-auto px-8 border-slate-400/20 border p-2 backdrop-blur-2xl rounded-md"
+        className="cursor-pointer bg-slate-400/30 ml-auto px-8 border-slate-400/20 border p-2 rounded-md"
       >
         {isPending ? <p>Saving...</p> : "Save"}
       </button>
