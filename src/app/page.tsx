@@ -5,6 +5,7 @@ import { ActionsListContainer } from "@/features/actions-list/components/actions
 import { Suspense } from "react";
 import { SelectLoadingSkeleton } from "@/features/repo-select/components/select-loading-skeleton";
 import { SkeletonLoading } from "@/features/actions-list/components/skeleton-loading";
+import { QueryUIProvider } from "@/components/query-ui-context";
 
 export default async function Home() {
   return (
@@ -23,12 +24,14 @@ export default async function Home() {
             Settings
           </Link>
         </header>
-        <Suspense fallback={<SelectLoadingSkeleton />}>
-          <ResposSelectContainer />
-        </Suspense>
-        <Suspense fallback={<SkeletonLoading />}>
-          <ActionsListContainer />
-        </Suspense>
+        <QueryUIProvider>
+          <Suspense fallback={<SelectLoadingSkeleton />}>
+            <ResposSelectContainer />
+          </Suspense>
+          <Suspense fallback={<SkeletonLoading />}>
+            <ActionsListContainer />
+          </Suspense>
+        </QueryUIProvider>
       </main>
     </div>
   );

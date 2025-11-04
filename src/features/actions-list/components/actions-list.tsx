@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryUI } from "@/components/query-ui-context";
 import { useGetActions } from "@/features/actions-list/api/get-actions";
 import { SkeletonActionsList } from "@/features/actions-list/components/skeleton-loading";
 import { TimeElapsed } from "@/features/actions-list/components/time-elapsed";
@@ -29,12 +30,16 @@ type Props = {
 };
 
 export const ActionsList = ({ owner, token, repo }: Props) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useGetActions({
-      owner,
-      token,
-      repo: repo || "",
-    });
+  const { isManualRefetching, setIsManualRefetching } = useQueryUI();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetActions(
+      {
+        owner,
+        token,
+        repo: repo || "",
+      },
+      setIsManualRefetching
+    );
 
   const { ref } = useInView({
     onChange: (isVisible) => {
@@ -60,7 +65,7 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
     );
   }
 
-  if (isFetching && !isFetchingNextPage) {
+  if (isManualRefetching && !isFetchingNextPage) {
     return <SkeletonActionsList />;
   }
 

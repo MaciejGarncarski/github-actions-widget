@@ -1,4 +1,5 @@
 "use client";
+import { useQueryUI } from "@/components/query-ui-context";
 import { useGetRepos } from "@/features/repo-select/api/get-repos";
 import { setSelectedRepo } from "@/features/repo-select/api/set-selected-repo";
 import { PatError } from "@/features/repo-select/components/pat-error";
@@ -11,8 +12,9 @@ export function ReposSelect({
   token: string | null;
   repo: string | null;
 }) {
-  const { data, isError, isLoading } = useGetRepos(token);
+  const { data, isError } = useGetRepos(token);
   const queryClient = useQueryClient();
+  const { setIsManualRefetching } = useQueryUI();
 
   if (isError || !data) {
     return <PatError />;
@@ -46,6 +48,7 @@ export function ReposSelect({
         id="selectRepo"
         onChange={(changeEvent) => {
           setSelectedRepo(changeEvent.target.value);
+          setIsManualRefetching(true);
           queryClient.invalidateQueries({ queryKey: ["actions"] });
         }}
       >

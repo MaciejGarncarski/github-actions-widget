@@ -21,7 +21,10 @@ type Data = {
   repo?: string;
 };
 
-export const getActionsQueryOptions = ({ owner, repo, token }: Data) => {
+export const getActionsQueryOptions = (
+  { owner, repo, token }: Data,
+  setIsManualRefetching?: (val: boolean) => void
+) => {
   return infiniteQueryOptions<
     GithubRunsPage,
     Error,
@@ -30,7 +33,7 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) => {
     number
   >({
     initialPageParam: 1,
-    refetchInterval: 5000,
+    refetchInterval: 3000,
     staleTime: 10000,
     gcTime: 20000,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
@@ -52,6 +55,8 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) => {
         return null;
       }
 
+      setIsManualRefetching?.(false);
+
       return {
         rate_limit: response.data.rate_limit,
         workflow_runs: response.data.workflow_runs,
@@ -64,6 +69,11 @@ export const getActionsQueryOptions = ({ owner, repo, token }: Data) => {
   });
 };
 
-export const useGetActions = (data: Data) => {
-  return useSuspenseInfiniteQuery(getActionsQueryOptions(data));
+export const useGetActions = (
+  data: Data,
+  setIsManualRefetching: (val: boolean) => void
+) => {
+  return useSuspenseInfiniteQuery(
+    getActionsQueryOptions(data, setIsManualRefetching)
+  );
 };
