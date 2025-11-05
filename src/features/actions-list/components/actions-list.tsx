@@ -31,7 +31,7 @@ type Props = {
 
 export const ActionsList = ({ owner, token, repo }: Props) => {
   const { isManualRefetching, setIsManualRefetching } = useQueryUI();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useGetActions(
       {
         owner,
@@ -140,13 +140,19 @@ export const ActionsList = ({ owner, token, repo }: Props) => {
                     <p className="flex items-center gap-2">
                       <Calendar1Icon size={16} /> {formattedStartDate}
                     </p>
-                    {!conclusion && status === "in_progress" && (
-                      <TimeElapsed initialDate={runDate} />
-                    )}
-                    {status === "completed" && (
-                      <p className="flex items-center gap-2">
-                        <Clock3 size={16} /> {distance}
-                      </p>
+                    {isFetching ? (
+                      <p className="flex items-center gap-2">Loading...</p>
+                    ) : (
+                      <>
+                        {!conclusion && status === "in_progress" && (
+                          <TimeElapsed initialDate={runDate} />
+                        )}
+                        {status === "completed" && (
+                          <p className="flex items-center gap-2">
+                            <Clock3 size={16} /> {distance}
+                          </p>
+                        )}
+                      </>
                     )}
                     <p className="mt-auto text-gray-300/50 text-sm">
                       {head_sha}
